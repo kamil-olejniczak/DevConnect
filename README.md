@@ -1,14 +1,21 @@
-"dependencies": {
-"bcryptjs": "^2.4.3",
-"body-parser": "^1.18.3",
-"dotenv": "^5.0.1",
-"express": "^4.16.3",
-"jsonwebtoken": "^8.2.1",
-"mongoose": "^5.1.3",
-"passport": "^0.4.0",
-"passport-jwt": "^4.0.0",
-"validator": "^10.2.0"
-},
-"devDependencies": {
-"nodemon": "^1.17.5"
-}
+# DevConnect
+
+Fullstack app which groups developers and helps user to find freelancer you need.
+
+## Used packages
+
+```
+Dependencies:
+bcryptjs: to encrypt user passwords in database,
+body-parser: to parse responses,
+dotenv: to set up environment variables (i.e. user/pass for mongoDB),
+express: for organizing app into a MVC architecture on server side,
+jsonwebtoken: popular access tokens, used instead of session-base authentication,
+mongoose: layer between app and db,
+passport: authentication middleware,
+passport-jwt: authentication middleware for JSON Web Tokens,
+validator: to validate and sanitize strings.
+
+Dev dependencies:
+nodemon: to automatically refresh every change in server code.
+```
