@@ -2,24 +2,28 @@ const express = require("express");
 const router = express.Router();
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const passport = require("passport");
 const User = require("../../models/User");
-
-/**
- * @route GET api/users/test
- * @desc Tests users route
- * @access Public
- **/
-router.get("/test", (req, res) => res.json({ msg: "Users JSON is working" }));
+const validateUserRegisterInput = require("../../validation/register");
+const validateUserLoginInput = require("../../validation/login");
 
 /**
  * @route POST api/users/register
- * @desc Register user
+ * @desc Registers user
  * @access Public
  **/
 router.post("/register", (req, res) => {
+  const { errors, isValid } = validateUserRegisterInput(req.body);
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
   User.findOne({ email: req.body.email }).then(user => {
     if (user) {
-      return res.status(400).json({ email: "Email already in use!" });
+      errors.email = "Email already in use!";
+      return res.status(400).json(errors);
     } else {
       const avatar = gravatar.url(req.body.email, {
         s: "200", // size
@@ -49,26 +53,52 @@ router.post("/register", (req, res) => {
 
 /**
  * @route POST api/users/login
- * @desc Return JSON Web Token to login user
+ * @desc Returns JSON Web Token to login user
  * @access Public
  **/
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  const { errors, isValid } = validateUserLoginInput({ email, password });
+
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
 
   User.findOne({ email }).then(user => {
     if (!user) {
-      return res.status(404).json({ email: "Email or user not found!" });
-    } else {
-      bcrypt.compare(password, user.password).then(isMatch => {
-        if (isMatch) {
-          return res.json({ messsage: "Successful login!" });
-        } else {
-          return res.status(404).json({ password: "Password or user is invalid!" });
-        }
-      });
+      errors.email = "Email or user not found!";
+      return res.status(404).json(errors);
     }
+
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        const payload = {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar
+        };
+        jwt.sign(payload, process.env.SECRET_JWT_TOKEN, { expiresIn: 3600 }, (error, token) => {
+          return res.json({
+            success: true,
+            token: "Bearer " + token
+          });
+        });
+      } else {
+        errors.password = "Password or user is invalid!";
+        return res.status(404).json(errors);
+      }
+    });
   });
+});
+
+/**
+ * @route GET api/users/current
+ * @desc Returns current user
+ * @access Private
+ **/
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+  return res.json(req.user);
 });
 
 module.exports = router;

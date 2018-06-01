@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const bodyParser = require("body-parser");
 
 const users = require("./routes/api/users");
@@ -23,6 +24,9 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 app.use("/api/users", users);
 app.use("/api/profile", profile);
