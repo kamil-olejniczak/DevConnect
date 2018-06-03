@@ -9,6 +9,15 @@ const validateUserRegisterInput = require("../../validation/register");
 const validateUserLoginInput = require("../../validation/login");
 
 /**
+ * @route GET api/users/current
+ * @desc Returns current user
+ * @access Private
+ **/
+router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
+    return res.json(req.user);
+});
+
+/**
  * @route POST api/users/register
  * @desc Registers user
  * @access Public
@@ -90,15 +99,6 @@ router.post("/login", (req, res) => {
       }
     });
   });
-});
-
-/**
- * @route GET api/users/current
- * @desc Returns current user
- * @access Private
- **/
-router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
-  return res.json(req.user);
 });
 
 module.exports = router;
