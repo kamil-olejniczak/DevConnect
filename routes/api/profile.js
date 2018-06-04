@@ -37,7 +37,7 @@ router.get("/handle/:handle", (req, res) => {
         .populate("user", ["name", "avatar"])
         .then(profile => {
             if (!profile) {
-                errors.profile = "Profile not found for current user!";
+                errors.profile = "Profile not found for this handle!";
                 return res.status(404).json(errors);
             }
             return res.json(profile);
@@ -46,17 +46,17 @@ router.get("/handle/:handle", (req, res) => {
 });
 
 /**
- * @route GET api/profile/user/:userId
+ * @route GET api/profile/user/:user_id
  * @desc Returns profile based on user id
  * @access Public
  **/
-router.get("/user/:user_d", (req, res) => {
+router.get("/user/:user_id", (req, res) => {
     const errors = {};
-    Profile.findOne({user_id: req.params.user_id})
-        .populate("user", ["name", "avatar"])
+    Profile.findOne({user: req.params.user_id})
+            .populate("user", ["name", "avatar"])
         .then(profile => {
             if (!profile) {
-                errors.profile = "Profile not found for current user!";
+                errors.profile = "Profile not found for this user!";
                 return res.status(404).json(errors);
             }
             return res.json(profile);
