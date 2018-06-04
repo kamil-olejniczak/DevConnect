@@ -53,7 +53,7 @@ router.get("/handle/:handle", (req, res) => {
 router.get("/user/:user_id", (req, res) => {
     const errors = {};
     Profile.findOne({user: req.params.user_id})
-            .populate("user", ["name", "avatar"])
+        .populate("user", ["name", "avatar"])
         .then(profile => {
             if (!profile) {
                 errors.profile = "Profile not found for this user!";
@@ -90,34 +90,16 @@ router.get("/all", (req, res) => {
  **/
 router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
     const {errors, isValid} = validateUserProfileInput(req.body);
-    const profileFields = {};
-
     if (!isValid) {
         return res.status(400).json(errors);
     }
 
-    profileFields.user = req.user.id;
-    if (req.body.handle) profileFields.handle = req.body.handle;
-    if (req.body.company) profileFields.company = req.body.company;
-    if (req.body.website) profileFields.website = req.body.website;
-    if (req.body.location) profileFields.location = req.body.location;
-    if (req.body.status) profileFields.status = req.body.status;
-    if (typeof req.body.skills !== "undefined") profileFields.skills = req.body.skills.split(",");
-    if (req.body.bio) profileFields.bio = req.body.bio;
-    if (req.body.gitHubUsername) profileFields.gitHubUsername = req.body.gitHubUsername;
-
-    profileFields.social = {};
-    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
-    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
-    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
-    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
-    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+    const profileFields = prepareRequestToCreateOrUpdateProfile(req);
 
     Profile.findOne({user: req.user.id}).then(profile => {
         if (profile) {
-            Profile.findOneAndUpdate({user: req.user.id}, {$set: profileFields}, {new: true}).then(profile =>
-                res.json(profile) //TODO: Separate POST FROM PUT
-            );
+            errors.profile = "For user updates please use PUT request!";
+            return res.status(404).json(errors);
         } else {
             Profile.findOne({handle: profileFields.handle}).then(profile => {
                 if (profile) {
@@ -192,6 +174,31 @@ router.post('/education', passport.authenticate("jwt", {session: false}), (req, 
 });
 
 /**
+ * @route PUT api/profile
+ * @desc Updates profile for current user
+ * @access Private
+ **/
+
+router.put("/", passport.authenticate("jwt", {session: false}), (req, res) => {
+    const {errors, isValid} = validateUserProfileInput(req.body);
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const profileFields = prepareRequestToCreateOrUpdateProfile(req);
+
+    Profile.findOne({user: req.user.id}).then(profile => {
+        if (profile) {
+            Profile.findOneAndUpdate({user: req.user.id}, {$set: profileFields}, {new: true}).then(profile =>
+                res.json(profile));
+        } else {
+            errors.profile = "For create new user please use POST request!";
+            return res.status(404).json(errors);
+        }
+    });
+});
+
+/**
  * @route DELETE api/profile/experience/:experience_id
  * @desc Deletes experience from user profile
  * @access Private
@@ -260,5 +267,28 @@ router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) =>
                 .then(() => res.json({wasUserDeleted: true}))
         });
 });
+
+const prepareRequestToCreateOrUpdateProfile = (req) => {
+    const profileFields = {};
+
+    profileFields.user = req.user.id;
+    if (req.body.handle) profileFields.handle = req.body.handle;
+    if (req.body.company) profileFields.company = req.body.company;
+    if (req.body.website) profileFields.website = req.body.website;
+    if (req.body.location) profileFields.location = req.body.location;
+    if (req.body.status) profileFields.status = req.body.status;
+    if (typeof req.body.skills !== "undefined") profileFields.skills = req.body.skills.split(",");
+    if (req.body.bio) profileFields.bio = req.body.bio;
+    if (req.body.gitHubUsername) profileFields.gitHubUsername = req.body.gitHubUsername;
+
+    profileFields.social = {};
+    if (req.body.youtube) profileFields.social.youtube = req.body.youtube;
+    if (req.body.twitter) profileFields.social.twitter = req.body.twitter;
+    if (req.body.facebook) profileFields.social.facebook = req.body.facebook;
+    if (req.body.linkedin) profileFields.social.linkedin = req.body.linkedin;
+    if (req.body.instagram) profileFields.social.instagram = req.body.instagram;
+
+    return profileFields;
+};
 
 module.exports = router;
