@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const User = require("../../models/User");
+const Profile = require("../../models/Profile");
 const validateUserRegisterInput = require("../../validation/register");
 const validateUserLoginInput = require("../../validation/login");
 
@@ -99,6 +100,24 @@ router.post("/login", (req, res) => {
       }
     });
   });
+});
+
+/**
+ * @route DELETE api/users/
+ * @desc Deletes user along with profile
+ * @access Private
+ **/
+router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) => {
+    const errors = {};
+    User.findOneAndRemove({_id: req.user.id})
+        .then((profile) => {
+            if (!profile) {
+                errors.profile = "There is no user with given id in database!";
+                return res.status(404).json(errors); //TODO: DELETE because when user was not found we get Unauthorized
+            }
+            Profile.findOneAndRemove({user: req.user.id})
+                .then(() => res.json({wasUserDeleted: true}));
+        });
 });
 
 module.exports = router;
