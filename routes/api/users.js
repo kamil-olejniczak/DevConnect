@@ -54,7 +54,7 @@ router.post("/register", (req, res) => {
           newUser
             .save()
             .then(user => res.json(user))
-            .catch(error => console.log(error));
+            .catch(error => res.status(404).json(error));
         });
       });
     }
