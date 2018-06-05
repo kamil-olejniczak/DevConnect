@@ -52,6 +52,10 @@ router.get("/handle/:handle", (req, res) => {
  **/
 router.get("/user/:user_id", (req, res) => {
     const errors = {};
+    if (!req.params.user_id.match(/^[0-9a-fA-F]{24}$/)) {
+        errors.id = "Given id is not proper!";
+        return res.status(404).json(errors);
+    }
     Profile.findOne({user: req.params.user_id})
         .populate("user", ["name", "avatar"])
         .then(profile => {
@@ -205,6 +209,10 @@ router.put("/", passport.authenticate("jwt", {session: false}), (req, res) => {
  **/
 router.delete('/experience/:experience_id', passport.authenticate("jwt", {session: false}), (req, res) => {
     const errors = {};
+    if (!req.params.experience_id.match(/^[0-9a-fA-F]{24}$/)) {
+        errors.id = "Given id is not proper!";
+        return res.status(404).json(errors);
+    }
     Profile.findOne({user: req.user.id})
         .then(profile => {
             const indexToBeRemoved = profile.experience
@@ -231,6 +239,10 @@ router.delete('/experience/:experience_id', passport.authenticate("jwt", {sessio
  **/
 router.delete('/education/:education_id', passport.authenticate("jwt", {session: false}), (req, res) => {
     const errors = {};
+    if (!req.params.education_id.match(/^[0-9a-fA-F]{24}$/)) {
+        errors.id = "Given id is not proper!";
+        return res.status(404).json(errors);
+    }
     Profile.findOne({user: req.user.id})
         .then(profile => {
             const indexToBeRemoved = profile.education
