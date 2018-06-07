@@ -14,8 +14,8 @@ const validateUserLoginInput = require("../../validation/login");
  * @desc Returns current user
  * @access Private
  **/
-router.get("/current", passport.authenticate("jwt", { session: false }), (req, res) => {
-    return res.json(req.user);
+router.get("/current", passport.authenticate("jwt", {session: false}), (req, res) => {
+  return res.json(req.user);
 });
 
 /**
@@ -24,13 +24,13 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
  * @access Public
  **/
 router.post("/register", (req, res) => {
-  const { errors, isValid } = validateUserRegisterInput(req.body);
+  const {errors, isValid} = validateUserRegisterInput(req.body);
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email: req.body.email }).then(user => {
+  User.findOne({email: req.body.email}).then(user => {
     if (user) {
       errors.email = "Email already in use!";
       return res.status(400).json(errors);
@@ -69,13 +69,13 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  const { errors, isValid } = validateUserLoginInput({ email, password });
+  const {errors, isValid} = validateUserLoginInput({email, password});
 
   if (!isValid) {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ email }).then(user => {
+  User.findOne({email}).then(user => {
     if (!user) {
       errors.email = "Email or user not found!";
       return res.status(404).json(errors);
@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
           name: user.name,
           avatar: user.avatar
         };
-        jwt.sign(payload, process.env.SECRET_JWT_TOKEN, { expiresIn: 3600 }, (error, token) => {
+        jwt.sign(payload, process.env.SECRET_JWT_TOKEN, {expiresIn: 3600}, (error, token) => {
           return res.json({
             success: true,
             token: "Bearer " + token
@@ -108,16 +108,16 @@ router.post("/login", (req, res) => {
  * @access Private
  **/
 router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) => {
-    const errors = {};
-    User.findOneAndRemove({_id: req.user.id})
-        .then((profile) => {
-            if (!profile) {
-                errors.profile = "There is no user with given id in database!";
-                return res.status(404).json(errors); //TODO: DELETE because when user was not found we get Unauthorized
-            }
-            Profile.findOneAndRemove({user: req.user.id})
-                .then(() => res.json({wasUserDeleted: true}));
-        });
+  const errors = {};
+  User.findOneAndRemove({_id: req.user.id})
+    .then((profile) => {
+      if (!profile) {
+        errors.profile = "There is no user with given id in database!";
+        return res.status(404).json(errors); //TODO: DELETE because when user was not found we get Unauthorized
+      }
+      Profile.findOneAndRemove({user: req.user.id})
+        .then(() => res.json({wasUserDeleted: true}));
+    });
 });
 
 module.exports = router;

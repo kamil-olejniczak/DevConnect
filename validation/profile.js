@@ -10,7 +10,7 @@ module.exports = function validateUserProfileInput(data) {
 
   if (Validator.isEmpty(data.handle)) {
     errors.handle = "Email field is required!";
-  } else if (!Validator.isLength(data.handle, { min: 4, max: 30 })) {
+  } else if (!Validator.isLength(data.handle, {min: 4, max: 30})) {
     errors.email = "Handle length must be between 4 and 30 characters!";
   }
 
