@@ -15,6 +15,9 @@ class Register extends Component {
 
   componentDidMount() {
     this.props.cleanUpErrors();
+    if (this.props.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
   }
 
   onChange = (event) => {
@@ -96,12 +99,14 @@ class Register extends Component {
 
 Register.propTypes = {
   initSaveNewUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
   user: PropTypes.object.isRequired,
   errors: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
+    isAuthenticated: state.auth.isAuthenticated,
     user: state.auth.user,
     errors: state.errors
   };
