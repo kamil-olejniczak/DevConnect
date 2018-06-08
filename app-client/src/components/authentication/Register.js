@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
-import * as developerActions from "../../store/actions/auth";
+import * as authActions from "../../store/actions/auth";
+import * as errorActions from "../../store/actions/error";
 import PropTypes from 'prop-types';
 
 class Register extends Component {
@@ -12,6 +13,10 @@ class Register extends Component {
     confirmPassword: '',
   };
 
+  componentDidMount() {
+    this.props.cleanUpErrors();
+  }
+
   onChange = (event) => {
     this.setState({[event.target.name]: event.target.value});
   };
@@ -21,16 +26,14 @@ class Register extends Component {
     const newUser = {
       ...this.state,
     };
-    delete newUser['errors'];
 
     this.props.initSaveNewUser(newUser, this.props.history);
   };
 
   render() {
-    const {user, errors} = this.props;
+    const {errors} = this.props;
     return (
       <div className="register">
-        {user ? user.name : null}
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
@@ -41,7 +44,8 @@ class Register extends Component {
                   <input type="text"
                          className={classnames('form-control form-control-lg', {'is-invalid': errors.name})}
                          placeholder="Name"
-                         name="name" autoComplete="name"
+                         name="name"
+                         autoComplete="name"
                          value={this.state.name}
                          onChange={this.onChange}
                          required/>
@@ -105,7 +109,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    initSaveNewUser: (payload, history) => dispatch(developerActions.initSaveNewUser(payload, history))
+    initSaveNewUser: (payload, history) => dispatch(authActions.initSaveNewUser(payload, history)),
+    cleanUpErrors: () => dispatch(errorActions.cleanUpErrors())
   };
 };
 
