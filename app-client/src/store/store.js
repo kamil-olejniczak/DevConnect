@@ -3,6 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import rootSaga from './sagas/sagaIndex';
 import authReducer from './reducers/auth';
 import errorReducer from './reducers/error';
+import profileReducer from './reducers/profile';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -12,6 +13,7 @@ const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  profile: profileReducer,
   errors: errorReducer
 });
 
