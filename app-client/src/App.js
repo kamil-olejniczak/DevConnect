@@ -7,14 +7,23 @@ import Register from './components/authentication/Register';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import jwt_decode from 'jwt-decode';
 import {addAuthorizationHeader} from './utils/utils';
-import {loginUser} from './store/actions/auth';
+import {initLogoutUser, loginUser} from './store/actions/auth';
 import store from './store/store';
 import './App.css';
+import {cleanUpCurrentProfile} from './store/actions/profile';
 
 const token = localStorage.getItem('JWT_TOKEN');
 if (token) {
   addAuthorizationHeader(token);
-  store.dispatch(loginUser(jwt_decode(token)));
+  const decoded = jwt_decode(token);
+  const currentTime = Date.now() / 1000;
+
+  if (decoded.exp < currentTime) {
+    store.dispatch(initLogoutUser());
+    store.dispatch(cleanUpCurrentProfile())
+  } else {
+    store.dispatch(loginUser(decoded));
+  }
 }
 
 class App extends Component {

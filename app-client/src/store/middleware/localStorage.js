@@ -1,4 +1,4 @@
-export function removeJwtToken(token) {
+export function removeJwtToken() {
   localStorage.removeItem('JWT_TOKEN');
 }
 
