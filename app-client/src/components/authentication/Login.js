@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import classnames from 'classnames';
 import {connect} from 'react-redux';
 import * as authActions from '../../store/actions/auth';
 import * as errorActions from '../../store/actions/error';
 import PropTypes from 'prop-types';
+import InputFieldGroup from '../common/form/InputFieldGroup';
 
 class Login extends Component {
   state = {
@@ -41,26 +41,20 @@ class Login extends Component {
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">Sign in to your DevConnector account</p>
               <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input type="email"
-                         className={classnames('form-control form-control-lg', {'is-invalid': errors.email})}
-                         placeholder="Email Address"
-                         name="email"
-                         autoComplete="email"
-                         value={this.state.email}
-                         onChange={this.onChange}/>
-                  {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-                </div>
-                <div className="form-group">
-                  <input type="password"
-                         className={classnames('form-control form-control-lg', {'is-invalid': errors.password})}
-                         placeholder="Password"
-                         name="password"
-                         autoComplete="current-password"
-                         value={this.state.password}
-                         onChange={this.onChange}/>
-                  {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
-                </div>
+                <InputFieldGroup autoComplete="email"
+                                 error={errors.email}
+                                 name="email"
+                                 onChange={this.onChange}
+                                 placeholder="Email Address"
+                                 type="email"
+                                 value={this.state.email}/>
+                <InputFieldGroup autoComplete="current-password"
+                                 error={errors.password}
+                                 name="password"
+                                 onChange={this.onChange}
+                                 placeholder="Password"
+                                 type="password"
+                                 value={this.state.password}/>
                 <input type="submit" className="btn btn-info btn-block mt-4"/>
               </form>
             </div>
@@ -73,6 +67,7 @@ class Login extends Component {
 
 Login.propTypes = {
   initLoginUser: PropTypes.func.isRequired,
+  cleanUpErrors: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
   user: PropTypes.object.isRequired,
   errors: PropTypes.object
