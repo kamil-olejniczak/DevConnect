@@ -5,6 +5,7 @@ import {cleanUpErrors, loginUserRequestNotProcessed, saveNewUserRequestNotProces
 import jwt_decode from 'jwt-decode';
 import {removeJwtToken, saveJwtToken} from '../middleware/localStorage';
 import {addAuthorizationHeader, removeAuthorizationHeader} from '../../utils/utils';
+import {cleanUpCurrentProfile} from '../actions/profile';
 
 export function* saveNewUserSaga({payload, history}) {
   try {
@@ -40,5 +41,6 @@ export function* logoutUserSaga() {
   removeJwtToken();
   removeAuthorizationHeader();
 
+  yield put(cleanUpCurrentProfile());
   yield put(logoutUser());
 }
