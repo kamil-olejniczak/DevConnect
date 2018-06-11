@@ -1,7 +1,7 @@
 import * as actionTypes from '../actions/actionTypes';
 import {all, takeEvery} from 'redux-saga/effects';
 import {loginUserSaga, logoutUserSaga, saveNewUserSaga} from './auth';
-import {getProfileSaga} from './profile';
+import {createProfileSaga, getProfileSaga} from './profile';
 
 const watchAuth = [
   takeEvery(actionTypes.INIT_SAVE_NEW_USER, saveNewUserSaga),
@@ -10,7 +10,8 @@ const watchAuth = [
 ];
 
 const watchProfile = [
-  takeEvery(actionTypes.INIT_GET_PROFILE, getProfileSaga)
+  takeEvery(actionTypes.INIT_GET_PROFILE, getProfileSaga),
+  takeEvery(actionTypes.INIT_CREATE_PROFILE, createProfileSaga)
 ];
 
 export default function* rootSaga() {

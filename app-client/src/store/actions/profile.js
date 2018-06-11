@@ -17,8 +17,20 @@ export const getProfiles = () => ({
   type: profileActions.GET_PROFILES
 });
 
-export const profileNotFound = () => ({
-  type: profileActions.PROFILE_NOT_FOUND
+export const initCreateProfile = (payload, history) => ({
+  type: profileActions.INIT_CREATE_PROFILE,
+  payload,
+  history
+});
+
+export const createProfile = payload => ({
+  type: profileActions.CREATE_PROFILE,
+  payload
+});
+
+export const profileNotFound = payload => ({
+  type: profileActions.PROFILE_NOT_FOUND,
+  payload
 });
 
 export const profileIsLoading = () => ({

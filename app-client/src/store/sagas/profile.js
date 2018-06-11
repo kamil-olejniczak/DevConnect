@@ -1,6 +1,7 @@
 import axios from 'axios/index';
-import {getProfile, profileIsLoading} from '../actions/profile';
+import {createProfile, getProfile, profileIsLoading, profileNotFound} from '../actions/profile';
 import {put} from 'redux-saga/effects';
+import {cleanUpErrors, createProfileRequestNotProcessed} from '../actions/error';
 
 export function* getProfileSaga() {
   try {
@@ -11,6 +12,18 @@ export function* getProfileSaga() {
     yield put(getProfile(payload));
 
   } catch (error) {
-    yield put(getProfile({userWithoutProfile : true}));
+    yield put(profileNotFound({userWithoutProfile: true}));
+  }
+}
+
+export function* createProfileSaga({payload, history}) {
+  try {
+    const response = yield axios.post('/api/profile', payload);
+    yield put(createProfile(response.data));
+
+    history.push('/dashboard');
+    yield put(cleanUpErrors());
+  } catch (error) {
+    yield put(createProfileRequestNotProcessed(error.response.data));
   }
 }
