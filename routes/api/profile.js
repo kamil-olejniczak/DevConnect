@@ -37,7 +37,7 @@ router.get("/handle/:handle", (req, res) => {
     .populate("user", ["name", "avatar"])
     .then(profile => {
       if (!profile) {
-        errors.profile = "Profile not found for this handle!";
+        errors.handle = "Profile not found for this handle!";
         return res.status(404).json(errors);
       }
       return res.json(profile);

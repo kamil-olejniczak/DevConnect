@@ -9,9 +9,9 @@ module.exports = function validateUserProfileInput(data) {
   data.skills = !isEmpty(data.skills) ? data.skills : "";
 
   if (Validator.isEmpty(data.handle)) {
-    errors.handle = "Email field is required!";
+    errors.handle = "Handle field is required!";
   } else if (!Validator.isLength(data.handle, {min: 4, max: 30})) {
-    errors.email = "Handle length must be between 4 and 30 characters!";
+    errors.handle = "Handle length must be between 4 and 30 characters!";
   }
 
   if (Validator.isEmpty(data.status)) {
