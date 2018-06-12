@@ -19,7 +19,7 @@ const InputGroup =
           <i className={icon}/>
         </span>
       </div>
-      <input autoComplete={autoComplete} //TODO: Should use InputFieldGroup?
+      <input autoComplete={autoComplete}
              className={classnames('form-control form-control-lg', {'is-invalid': error})}
              name={name}
              onChange={onChange}

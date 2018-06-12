@@ -44,6 +44,7 @@ InputFieldGroup.propTypes = {
 };
 
 InputFieldGroup.defaultProps = {
+  autoComplete: 'off',
   type: 'text'
 };
 
