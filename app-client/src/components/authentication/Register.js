@@ -15,9 +15,6 @@ class Register extends Component {
 
   componentDidMount() {
     this.props.cleanUpErrors();
-    if (this.props.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
   }
 
   onChange = (event) => {
@@ -52,11 +49,11 @@ class Register extends Component {
                                  value={this.state.name}/>
                 <InputFieldGroup autoComplete="email"
                                  error={errors.email}
+                                 info="This site uses Gravatar so if you want a profile image, use a Gravatar email."
                                  name="email"
                                  onChange={this.onChange}
                                  placeholder="Email Address"
                                  required={true}
-                                 info="This site uses Gravatar so if you want a profile image, use a Gravatar email."
                                  type="email"
                                  value={this.state.email}/>
                 <InputFieldGroup autoComplete="new-password"
@@ -65,7 +62,6 @@ class Register extends Component {
                                  onChange={this.onChange}
                                  placeholder="Password"
                                  required={true}
-                                 info="This site uses Gravatar so if you want a profile image, use a Gravatar email."
                                  type="password"
                                  value={this.state.password}/>
                 <InputFieldGroup autoComplete="new-password"
@@ -74,7 +70,6 @@ class Register extends Component {
                                  onChange={this.onChange}
                                  placeholder="Confirm Password"
                                  required={true}
-                                 info="This site uses Gravatar so if you want a profile image, use a Gravatar email."
                                  type="password"
                                  value={this.state.confirmPassword}/>
                 <input type="submit" className="btn btn-info btn-block mt-4"/>

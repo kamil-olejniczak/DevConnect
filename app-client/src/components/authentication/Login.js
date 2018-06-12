@@ -13,9 +13,6 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.cleanUpErrors();
-    if (this.props.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
   }
 
   onChange = (event) => {
