@@ -116,7 +116,7 @@ router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) =>
         return res.status(404).json(errors); //TODO: DELETE because when user was not found we get Unauthorized
       }
       Profile.findOneAndRemove({user: req.user.id})
-        .then(() => res.json({wasUserDeleted: true}));
+        .then(() => res.json({userWasDeleted: true}));
     });
 });
 

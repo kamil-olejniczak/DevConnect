@@ -212,7 +212,7 @@ router.delete('/:id', passport.authenticate("jwt", {session: false}), (req, res)
             return res.status(401).json(errors);
           }
           post.remove()
-            .then(() => res.json({wasPostDeleted: true}));
+            .then(() => res.json({postWasDeleted: true}));
         })
         .catch(error => res.status(404).json(error));
     });
@@ -248,7 +248,7 @@ router.delete('/comment/:id/:comment_id', passport.authenticate("jwt", {session:
 
       post.comments.splice(indexToBeRemoved, 1);
       post.save()
-        .then(() => res.json({wasCommentDeleted: true}))
+        .then(() => res.json({commentWasDeleted: true}))
         .catch(error => res.status(404).json(error))
     })
     .catch(error => res.status(404).json(error));

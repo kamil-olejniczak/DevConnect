@@ -276,7 +276,7 @@ router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) =>
         return res.status(404).json(errors);
       }
       User.findOneAndRemove({_id: req.user.id})
-        .then(() => res.json({wasUserDeleted: true}))
+        .then(() => res.json({userWasDeleted: true}))
     });
 });
 
