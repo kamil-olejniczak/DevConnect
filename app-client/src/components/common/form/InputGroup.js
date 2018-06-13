@@ -19,13 +19,14 @@ const InputGroup =
           <i className={icon}/>
         </span>
       </div>
-      <input autoComplete={autoComplete}
-             className={classnames('form-control form-control-lg', {'is-invalid': error})}
-             name={name}
-             onChange={onChange}
-             placeholder={placeholder}
-             type={type}
-             value={value}/>
+      <input
+        autoComplete={autoComplete}
+        className={classnames('form-control form-control-lg', {'is-invalid': error})}
+        name={name}
+        onChange={onChange}
+        placeholder={placeholder}
+        type={type}
+        value={value}/>
       {error && (<div className="invalid-feedback">{error}</div>)}
     </div>
   );

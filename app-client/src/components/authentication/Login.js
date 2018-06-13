@@ -38,20 +38,22 @@ class Login extends Component {
               <h1 className="display-4 text-center">Log In</h1>
               <p className="lead text-center">Sign in to your DevConnector account</p>
               <form onSubmit={this.onSubmit}>
-                <InputFieldGroup autoComplete="email"
-                                 error={errors.email}
-                                 name="email"
-                                 onChange={this.onChange}
-                                 placeholder="Email Address"
-                                 type="email"
-                                 value={this.state.email}/>
-                <InputFieldGroup autoComplete="current-password"
-                                 error={errors.password}
-                                 name="password"
-                                 onChange={this.onChange}
-                                 placeholder="Password"
-                                 type="password"
-                                 value={this.state.password}/>
+                <InputFieldGroup
+                  autoComplete="email"
+                  error={errors.email}
+                  name="email"
+                  onChange={this.onChange}
+                  placeholder="Email Address"
+                  type="email"
+                  value={this.state.email}/>
+                <InputFieldGroup
+                  autoComplete="current-password"
+                  error={errors.password}
+                  name="password"
+                  onChange={this.onChange}
+                  placeholder="Password"
+                  type="password"
+                  value={this.state.password}/>
                 <input type="submit" className="btn btn-info btn-block mt-4"/>
               </form>
             </div>

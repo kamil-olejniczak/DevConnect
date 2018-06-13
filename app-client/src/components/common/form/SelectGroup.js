@@ -16,10 +16,11 @@ const SelectGroup =
     ));
     return (
       <div className="form-group">
-        <select className={classnames('form-control form-control-lg', {'is-invalid': error})}
-                name={name}
-                onChange={onChange}
-                value={value}>
+        <select
+          className={classnames('form-control form-control-lg', {'is-invalid': error})}
+          name={name}
+          onChange={onChange}
+          value={value}>
           {optionsToSelect}
         </select>
         {info && <small className="form-text text-muted">{info}</small>}
