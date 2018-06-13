@@ -4,13 +4,19 @@ import Footer from './components/layout/Footer';
 import Landing from './components/layout/Landing';
 import Login from './components/authentication/Login';
 import Register from './components/authentication/Register';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import Dashboard from './components/dashboard/Dashboard';
+import {BrowserRouter as Router} from 'react-router-dom';
+import PrivateRoute from './components/common/PrivateRoute';
 import jwt_decode from 'jwt-decode';
 import {addAuthorizationHeader} from './utils/utils';
 import {initLogoutUser, loginUser} from './store/actions/auth';
 import store from './store/store';
 import './App.css';
 import {cleanUpCurrentProfile} from './store/actions/profile';
+import CreateProfile from './components/create-profile/CreateProfile';
+import AddExperience from './components/add-experience/AddExperience';
+import PublicRoute from './components/common/PublicRoute';
+import AddEducation from './components/add-education/AddEducation';
 
 const token = localStorage.getItem('JWT_TOKEN');
 if (token) {
@@ -32,9 +38,14 @@ class App extends Component {
       <Router>
         <div className="App">
           <Navbar/>
-          <Route path="/" component={Landing} exact/>
-          <Route path="/login" component={Login} exact/>
-          <Route path="/register" component={Register} exact/>
+          <PublicRoute path="/" component={Landing} exact/>
+          <PublicRoute path="/login" component={Login} exact/>
+          <PublicRoute path="/register" component={Register} exact/>
+          <PrivateRoute path="/dashboard" component={Dashboard} exact/>
+          <PrivateRoute path="/create-profile" component={CreateProfile} exact/>
+          <PrivateRoute path="/edit-profile" component={CreateProfile} exact/>
+          <PrivateRoute path="/add-experience" component={AddExperience} exact/>
+          <PrivateRoute path="/add-education" component={AddEducation} exact/>
           <Footer/>
         </div>
       </Router>

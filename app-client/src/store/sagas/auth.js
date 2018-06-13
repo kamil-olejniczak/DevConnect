@@ -10,9 +10,9 @@ import {cleanUpCurrentProfile} from '../actions/profile';
 export function* saveNewUserSaga({payload, history}) {
   try {
     const response = yield axios.post('/api/users/register', payload);
-    yield put(saveNewUser(response.data));
-
     history.push('/login');
+
+    yield put(saveNewUser(response.data));
     yield put(cleanUpErrors());
   } catch (error) {
     yield put(saveNewUserRequestNotProcessed(error.response.data));
