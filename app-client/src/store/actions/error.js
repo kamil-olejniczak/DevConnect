@@ -15,6 +15,26 @@ export const createProfileRequestNotProcessed = errors => ({
   errors
 });
 
+export const updateProfileRequestNotProcessed = errors => ({
+  type: errorActions.UPDATE_PROFILE_REQUEST_NOT_PROCESSED,
+  errors
+});
+
+export const removeProfileRequestNotProcessed = errors => ({
+  type: errorActions.REMOVE_PROFILE_ALONG_WITH_USER_REQUEST_NOT_PROCESSED,
+  errors
+});
+
+export const addExperienceRequestNotProcessed = errors => ({
+  type: errorActions.ADD_EXPERIENCE_REQUEST_NOT_PROCESSED,
+  errors
+});
+
+export const addEducationRequestNotProcessed = errors => ({
+  type: errorActions.ADD_EDUCATION_REQUEST_NOT_PROCESSED,
+  errors
+});
+
 export const cleanUpErrors = () => ({
   type: errorActions.CLEAN_UP_ERRORS
 });
