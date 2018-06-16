@@ -4,12 +4,13 @@ import rootSaga from './sagas/sagaIndex';
 import authReducer from './reducers/auth';
 import errorReducer from './reducers/error';
 import profileReducer from './reducers/profile';
+import browserErrorMiddleware from './middleware/browserError';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware));
+const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware, browserErrorMiddleware));
 
 const rootReducer = combineReducers({
   auth: authReducer,
