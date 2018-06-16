@@ -5,6 +5,7 @@ import ProfileActions from './ProfileActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import Experience from './Experience';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -29,6 +30,7 @@ class Dashboard extends Component {
             Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
           </p>
           <ProfileActions/>
+          <Experience experience={profile.experience}/>
           <div className="mt-4">
             <button className="btn btn-danger" type="button" onClick={this.onDeleteClick}>
               Delete My Account
