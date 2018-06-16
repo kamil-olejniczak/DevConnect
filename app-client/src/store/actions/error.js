@@ -30,6 +30,11 @@ export const addExperienceRequestNotProcessed = errors => ({
   errors
 });
 
+export const removeExperienceRequestNotProcessed = errors => ({
+  type: errorActions.REMOVE_EXPERIENCE_REQUEST_NOT_PROCESSED,
+  errors
+});
+
 export const addEducationRequestNotProcessed = errors => ({
   type: errorActions.ADD_EDUCATION_REQUEST_NOT_PROCESSED,
   errors
