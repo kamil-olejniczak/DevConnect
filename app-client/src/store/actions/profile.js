@@ -28,6 +28,17 @@ export const createProfile = payload => ({
   payload
 });
 
+export const initUpdateProfile = (payload, history) => ({
+  type: profileActions.INIT_UPDATE_PROFILE,
+  payload,
+  history
+});
+
+export const updateProfile = payload => ({
+  type: profileActions.UPDATE_PROFILE,
+  payload
+});
+
 export const profileNotFound = payload => ({
   type: profileActions.PROFILE_NOT_FOUND,
   payload
@@ -39,4 +50,47 @@ export const profileIsLoading = () => ({
 
 export const cleanUpCurrentProfile = () => ({
   type: profileActions.CLEAN_UP_CURRENT_PROFILE
+});
+
+export const initRemoveProfile = (history) => ({
+  type: profileActions.INIT_REMOVE_PROFILE_ALONG_WITH_USER,
+  history
+});
+
+export const removeProfile = (payload) => ({
+  type: profileActions.REMOVE_PROFILE_ALONG_WITH_USER,
+  payload,
+});
+
+export const initAddExperience = (payload, history) => ({
+  type: profileActions.INIT_ADD_EXPERIENCE,
+  payload,
+  history
+});
+
+export const addExperience = payload => ({
+  type: profileActions.ADD_EXPERIENCE,
+  payload
+});
+
+export const initRemoveExperience = (payload, history) => ({
+  type: profileActions.INIT_REMOVE_EXPERIENCE,
+  payload,
+  history
+});
+
+export const removeExperience = payload => ({
+  type: profileActions.REMOVE_EXPERIENCE,
+  payload
+});
+
+export const initAddEducation = (payload, history) => ({
+  type: profileActions.INIT_ADD_EDUCATION,
+  payload,
+  history
+});
+
+export const addEducation = payload => ({
+  type: profileActions.ADD_EDUCATION,
+  payload
 });
