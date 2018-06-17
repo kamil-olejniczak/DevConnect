@@ -30,35 +30,37 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({email: req.body.email}).then(user => {
-    if (user) {
-      errors.email = "Email already in use!";
-      return res.status(400).json(errors);
-    } else {
-      const avatar = gravatar.url(req.body.email, {
-        s: "200", // size
-        r: "pg", // rating
-        d: "mm" // default
-      });
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        avatar
-      });
-
-      bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(newUser.password, salt, (error, hash) => {
-          if (error) throw error;
-          newUser.password = hash;
-          newUser
-            .save()
-            .then(user => res.json(user))
-            .catch(error => res.status(404).json(error));
+  User.findOne({email: req.body.email})
+    .then(user => {
+      if (user) {
+        errors.email = "Email already in use!";
+        return res.status(400).json(errors);
+      } else {
+        const avatar = gravatar.url(req.body.email, {
+          s: "200", // size
+          r: "pg", // rating
+          d: "mm" // default
         });
-      });
-    }
-  });
+        const newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          password: req.body.password,
+          avatar
+        });
+
+        bcrypt.genSalt(10, (error, salt) => {
+          bcrypt.hash(newUser.password, salt, (error, hash) => {
+            if (error) throw error;
+            newUser.password = hash;
+            newUser
+              .save()
+              .then(user => res.json(user))
+              .catch(error => res.status(404).json(error));
+          });
+        });
+      }
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -75,31 +77,33 @@ router.post("/login", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({email}).then(user => {
-    if (!user) {
-      errors.email = "Email not found!";
-      return res.status(404).json(errors);
-    }
-
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (isMatch) {
-        const payload = {
-          id: user.id,
-          name: user.name,
-          avatar: user.avatar
-        };
-        jwt.sign(payload, process.env.SECRET_JWT_TOKEN, {expiresIn: 3600}, (error, token) => {
-          return res.json({
-            success: true,
-            token: "Bearer " + token
-          });
-        });
-      } else {
-        errors.password = "Password or email is invalid!";
+  User.findOne({email})
+    .then(user => {
+      if (!user) {
+        errors.email = "Email not found!";
         return res.status(404).json(errors);
       }
-    });
-  });
+
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if (isMatch) {
+          const payload = {
+            id: user.id,
+            name: user.name,
+            avatar: user.avatar
+          };
+          jwt.sign(payload, process.env.SECRET_JWT_TOKEN, {expiresIn: 3600}, (error, token) => {
+            return res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          });
+        } else {
+          errors.password = "Password or email is invalid!";
+          return res.status(404).json(errors);
+        }
+      });
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -116,8 +120,10 @@ router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) =>
         return res.status(404).json(errors); //TODO: DELETE because when user was not found we get Unauthorized
       }
       Profile.findOneAndRemove({user: req.user.id})
-        .then(() => res.json({userWasDeleted: true}));
-    });
+        .then(() => res.json({userWasDeleted: true}))
+        .catch(error => res.status(404).json(error));
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 module.exports = router;

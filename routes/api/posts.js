@@ -79,7 +79,8 @@ router.post('/like/:id', passport.authenticate("jwt", {session: false}), (req, r
             .catch(error => res.status(404).json(error));
         })
         .catch(error => res.status(404).json(error));
-    });
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -120,7 +121,8 @@ router.post('/unlike/:id', passport.authenticate("jwt", {session: false}), (req,
             .catch(error => res.status(404).json(error));
         })
         .catch(error => res.status(404).json(error));
-    });
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -215,7 +217,8 @@ router.delete('/:id', passport.authenticate("jwt", {session: false}), (req, res)
             .then(() => res.json({postWasDeleted: true}));
         })
         .catch(error => res.status(404).json(error));
-    });
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**

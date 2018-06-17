@@ -16,9 +16,7 @@ app.use(bodyParser.json()); // middleware for json
 const dbURI = require("./config/keys").mongoURI();
 mongoose
   .connect(dbURI)
-  .then(() => {
-    console.log("MongoDB Connected");
-  })
+  .then(() => console.log("MongoDB Connected"))
   .catch(error => console.log(error));
 
 app.get("/", (req, res) => {

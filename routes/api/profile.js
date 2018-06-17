@@ -100,21 +100,24 @@ router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
 
   const profileFields = prepareRequestToCreateOrUpdateProfile(req);
 
-  Profile.findOne({user: req.user.id}).then(profile => {
-    if (profile) {
-      errors.profile = "For user updates please use PUT request!";
-      return res.status(404).json(errors);
-    } else {
-      Profile.findOne({handle: profileFields.handle}).then(profile => {
-        if (profile) {
-          errors.handle = "That handle already exists!";
-          return res.status(404).json(errors);
-        }
-        return new Profile(profileFields).save()
-          .then(savedProfile => res.json(savedProfile));
-      });
-    }
-  });
+  Profile.findOne({user: req.user.id})
+    .then(profile => {
+      if (profile) {
+        errors.profile = "For user updates please use PUT request!";
+        return res.status(404).json(errors);
+      } else {
+        Profile.findOne({handle: profileFields.handle}).then(profile => {
+          if (profile) {
+            errors.handle = "That handle already exists!";
+            return res.status(404).json(errors);
+          }
+          return new Profile(profileFields).save()
+            .then(savedProfile => res.json(savedProfile))
+            .catch(error => res.status(404).json(error));
+        });
+      }
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -143,8 +146,10 @@ router.post('/experience', passport.authenticate("jwt", {session: false}), (req,
 
       profile.experience.unshift(newExperience);
       profile.save()
-        .then(profile => res.json(profile));
+        .then(profile => res.json(profile))
+        .catch(error => res.status(404).json(error));
     })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -173,8 +178,10 @@ router.post('/education', passport.authenticate("jwt", {session: false}), (req, 
 
       profile.education.unshift(newEducation);
       profile.save()
-        .then(profile => res.json(profile));
+        .then(profile => res.json(profile))
+        .catch(error => res.status(404).json(error));
     })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -191,15 +198,18 @@ router.put("/", passport.authenticate("jwt", {session: false}), (req, res) => {
 
   const profileFields = prepareRequestToCreateOrUpdateProfile(req);
 
-  Profile.findOne({user: req.user.id}).then(profile => {
-    if (profile) {
-      Profile.findOneAndUpdate({user: req.user.id}, {$set: profileFields}, {new: true}).then(profile =>
-        res.json(profile));
-    } else {
-      errors.profile = "For create new user please use POST request!";
-      return res.status(404).json(errors);
-    }
-  });
+  Profile.findOne({user: req.user.id})
+    .then(profile => {
+      if (profile) {
+        Profile.findOneAndUpdate({user: req.user.id}, {$set: profileFields}, {new: true})
+          .then(profile => res.json(profile))
+          .catch(error => res.status(404).json(error));
+      } else {
+        errors.profile = "For create new user please use POST request!";
+        return res.status(404).json(errors);
+      }
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -229,7 +239,8 @@ router.delete('/experience/:experience_id', passport.authenticate("jwt", {sessio
       profile.save()
         .then(profile => res.json(profile))
         .catch(error => res.status(404).json(error))
-    });
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -259,7 +270,8 @@ router.delete('/education/:education_id', passport.authenticate("jwt", {session:
       profile.save()
         .then(profile => res.json(profile))
         .catch(error => res.status(404).json(error))
-    });
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 /**
@@ -277,7 +289,9 @@ router.delete('/', passport.authenticate("jwt", {session: false}), (req, res) =>
       }
       User.findOneAndRemove({_id: req.user.id})
         .then(() => res.json({userWasDeleted: true}))
-    });
+        .catch(error => res.status(404).json(error));
+    })
+    .catch(error => res.status(404).json(error));
 });
 
 const prepareRequestToCreateOrUpdateProfile = (req) => {
