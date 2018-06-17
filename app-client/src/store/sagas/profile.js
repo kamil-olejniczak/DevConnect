@@ -86,3 +86,14 @@ export function* addEducationSaga({payload, history}) {
     yield put(errorActions.addEducationRequestNotProcessed(error.response.data));
   }
 }
+
+export function* removeEducationSaga({payload}) {
+  try {
+    const response = yield axios.delete('/api/profile/education/' + payload);
+
+    yield put(profileActions.removeEducation(response.data));
+    yield put(errorActions.cleanUpErrors());
+  } catch (error) {
+    yield put(errorActions.removeEducationRequestNotProcessed(error.response.data));
+  }
+}

@@ -11,7 +11,8 @@ const errorReducer = (state = initialState, action) => {
     case actionTypes.REMOVE_PROFILE_ALONG_WITH_USER_REQUEST_NOT_PROCESSED:
     case actionTypes.ADD_EXPERIENCE_REQUEST_NOT_PROCESSED:
     case actionTypes.REMOVE_EXPERIENCE_REQUEST_NOT_PROCESSED:
-    case actionTypes.ADD_EDUCATION_REQUEST_NOT_PROCESSED: {
+    case actionTypes.ADD_EDUCATION_REQUEST_NOT_PROCESSED:
+    case actionTypes.REMOVE_EDUCATION_REQUEST_NOT_PROCESSED:{
       return action.errors
     }
     case actionTypes.CLEAN_UP_ERRORS: {

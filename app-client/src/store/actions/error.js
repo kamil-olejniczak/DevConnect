@@ -40,6 +40,11 @@ export const addEducationRequestNotProcessed = errors => ({
   errors
 });
 
+export const removeEducationRequestNotProcessed = errors => ({
+  type: errorActions.REMOVE_EDUCATION_REQUEST_NOT_PROCESSED,
+  errors
+});
+
 export const cleanUpErrors = () => ({
   type: errorActions.CLEAN_UP_ERRORS
 });

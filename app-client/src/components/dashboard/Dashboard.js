@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Experience from './Experience';
+import Education from './Education';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -31,6 +32,7 @@ class Dashboard extends Component {
           </p>
           <ProfileActions/>
           <Experience experience={profile.experience}/>
+          <Education education={profile.education}/>
           <div className="mt-4">
             <button className="btn btn-danger" type="button" onClick={this.onDeleteClick}>
               Delete My Account

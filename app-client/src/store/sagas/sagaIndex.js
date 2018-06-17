@@ -5,7 +5,9 @@ import {
   addEducationSaga,
   addExperienceSaga,
   createProfileSaga,
-  getProfileSaga, removeExperienceSaga,
+  getProfileSaga,
+  removeEducationSaga,
+  removeExperienceSaga,
   removeProfileAlongWithUserSaga,
   updateProfileSaga
 } from './profile';
@@ -23,7 +25,8 @@ const watchProfile = [
   takeEvery(actionTypes.INIT_REMOVE_PROFILE_ALONG_WITH_USER, removeProfileAlongWithUserSaga),
   takeEvery(actionTypes.INIT_ADD_EXPERIENCE, addExperienceSaga),
   takeEvery(actionTypes.INIT_REMOVE_EXPERIENCE, removeExperienceSaga),
-  takeEvery(actionTypes.INIT_ADD_EDUCATION, addEducationSaga)
+  takeEvery(actionTypes.INIT_ADD_EDUCATION, addEducationSaga),
+  takeEvery(actionTypes.INIT_REMOVE_EDUCATION, removeEducationSaga)
 ];
 
 export default function* rootSaga() {

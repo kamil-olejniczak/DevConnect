@@ -90,6 +90,17 @@ export const initAddEducation = (payload, history) => ({
   history
 });
 
+export const initRemoveEducation = (payload, history) => ({
+  type: profileActions.INIT_REMOVE_EDUCATION,
+  payload,
+  history
+});
+
+export const removeEducation = payload => ({
+  type: profileActions.REMOVE_EDUCATION,
+  payload
+});
+
 export const addEducation = payload => ({
   type: profileActions.ADD_EDUCATION,
   payload

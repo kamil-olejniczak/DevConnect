@@ -35,8 +35,9 @@ const profileReducer = (state = initialState, action) => {
       return {...initialState}
     }
     case actionTypes.ADD_EXPERIENCE:
+    case actionTypes.REMOVE_EXPERIENCE:
     case actionTypes.ADD_EDUCATION:
-    case actionTypes.REMOVE_EXPERIENCE: {
+    case actionTypes.REMOVE_EDUCATION: {
       return {
         ...state,
         profile: action.payload,
