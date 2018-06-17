@@ -85,7 +85,7 @@ class AddEducation extends Component {
                   value={this.state.from}/>
                 <h6>To Date</h6>
                 <InputFieldGroup
-                  disabled={this.state.isStillWorking}
+                  disabled={this.state.isStillLearning}
                   error={errors.to}
                   name="to"
                   onChange={this.onChange}
