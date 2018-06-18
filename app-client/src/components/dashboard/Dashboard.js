@@ -22,9 +22,9 @@ class Dashboard extends Component {
     const {profile, isDataLoading} = this.props.profile;
 
     let dashboardContent;
-    if (Object.keys(profile).length === 0 || isDataLoading) {
+    if (isDataLoading || Object.keys(profile).length === 0) {
       dashboardContent = (<Spinner/>);
-    } else {
+    } else if (!isDataLoading && !profile.userWithoutProfile) {
       dashboardContent = (
         <div>
           <p className="lead text-muted">
@@ -40,8 +40,7 @@ class Dashboard extends Component {
           </div>
         </div>
       );
-    }
-    if (profile.userWithoutProfile) {
+    } else if (profile.userWithoutProfile) {
       dashboardContent = (
         <div>
           <p className="lead text-muted">Welcome {user.name}</p>
