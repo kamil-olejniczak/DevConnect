@@ -9,11 +9,12 @@ import InputGroup from '../common/form/InputGroup';
 import {initCreateProfile, initGetProfile, initUpdateProfile} from '../../store/actions/profile';
 import isEmpty from '../../utils/emptyObjectValidator';
 import * as errorActions from '../../store/actions/error';
-import {extractProfileDataFromResponse, isPathForEditProfile} from '../../utils/utils';
+import {extractProfileDataFromResponse, isPathForCreateProfile, isPathForEditProfile} from '../../utils/utils';
 
 class CreateProfile extends Component {
   state = {
     shouldDisplaySocialInputs: false,
+    isDataToEdit: false,
     handle: '',
     company: '',
     website: '',
@@ -26,13 +27,14 @@ class CreateProfile extends Component {
     twitter: '',
     facebook: '',
     linkedin: '',
-    instagram: '',
+    instagram: ''
   };
 
   componentDidMount() {
     this.props.cleanUpErrors();
+    this.props.initGetProfile();
     if (isPathForEditProfile(this.props.history.location.pathname)) {
-      this.props.initGetProfile();
+      this.setState({isDataToEdit: true});
     }
   }
 
@@ -42,7 +44,9 @@ class CreateProfile extends Component {
 
     if (profile.userWithoutProfile && isPathForEditProfile(pathname)) {
       this.props.history.push('/create-profile');
-    } else if (!isEmpty(profile) && !profile.userWithoutProfile) {
+    } else if (profile.handle && isPathForCreateProfile(pathname)) {
+      this.props.history.push('/edit-profile');
+    } else if (!isEmpty(profile) && !profile.userWithoutProfile && !this.state.isDataToEdit) {
       let formattedUserData = extractProfileDataFromResponse(profile);
       this.setState(() => ({...formattedUserData}));
     }
@@ -53,8 +57,9 @@ class CreateProfile extends Component {
 
     const profileData = {...this.state};
     delete profileData['shouldDisplaySocialInputs'];
+    delete profileData['isDataToEdit'];
 
-    if (this.props.history.location.pathname === '/edit-profile') {
+    if (isPathForEditProfile(this.props.history.location.pathname)) {
       this.props.initUpdateProfile(profileData, this.props.history);
     } else {
       this.props.initCreateProfile(profileData, this.props.history);
