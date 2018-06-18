@@ -6,6 +6,7 @@ import {
   addExperienceSaga,
   createProfileSaga,
   getProfileSaga,
+  getProfilesSaga,
   removeEducationSaga,
   removeExperienceSaga,
   removeProfileAlongWithUserSaga,
@@ -20,6 +21,7 @@ const watchAuth = [
 
 const watchProfile = [
   takeEvery(actionTypes.INIT_GET_PROFILE, getProfileSaga),
+  takeEvery(actionTypes.INIT_GET_PROFILES, getProfilesSaga),
   takeEvery(actionTypes.INIT_CREATE_PROFILE, createProfileSaga),
   takeEvery(actionTypes.INIT_UPDATE_PROFILE, updateProfileSaga),
   takeEvery(actionTypes.INIT_REMOVE_PROFILE_ALONG_WITH_USER, removeProfileAlongWithUserSaga),

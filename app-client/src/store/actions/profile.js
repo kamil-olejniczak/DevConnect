@@ -4,7 +4,7 @@ export const initGetProfile = () => ({
   type: profileActions.INIT_GET_PROFILE
 });
 
-export const getProfile = (payload) => ({
+export const getProfile = payload => ({
   type: profileActions.GET_PROFILE,
   payload
 });
@@ -13,8 +13,9 @@ export const initGetProfiles = () => ({
   type: profileActions.INIT_GET_PROFILES
 });
 
-export const getProfiles = () => ({
-  type: profileActions.GET_PROFILES
+export const getProfiles = payload => ({
+  type: profileActions.GET_PROFILES,
+  payload
 });
 
 export const initCreateProfile = (payload, history) => ({
@@ -44,20 +45,29 @@ export const profileNotFound = payload => ({
   payload
 });
 
+export const profilesNotFound = payload => ({
+  type: profileActions.PROFILES_NOT_FOUND,
+  payload
+});
+
 export const profileIsLoading = () => ({
   type: profileActions.PROFILE_IS_LOADING
+});
+
+export const profilesAreLoading = () => ({
+  type: profileActions.PROFILES_ARE_LOADING
 });
 
 export const cleanUpCurrentProfile = () => ({
   type: profileActions.CLEAN_UP_CURRENT_PROFILE
 });
 
-export const initRemoveProfile = (history) => ({
+export const initRemoveProfile = history => ({
   type: profileActions.INIT_REMOVE_PROFILE_ALONG_WITH_USER,
   history
 });
 
-export const removeProfile = (payload) => ({
+export const removeProfile = payload => ({
   type: profileActions.REMOVE_PROFILE_ALONG_WITH_USER,
   payload,
 });

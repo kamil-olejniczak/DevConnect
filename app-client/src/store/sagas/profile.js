@@ -16,6 +16,18 @@ export function* getProfileSaga() {
   }
 }
 
+export function* getProfilesSaga() {
+  try {
+    yield put(profileActions.profilesAreLoading());
+    const response = yield axios.get('/api/profile/all');
+    const payload = response.data;
+
+    yield put(profileActions.getProfiles(payload));
+  } catch (error) {
+    yield put(profileActions.profilesNotFound({userWithoutProfiles: true}));
+  }
+}
+
 export function* createProfileSaga({payload, history}) {
   try {
     const response = yield axios.post('/api/profile', payload);

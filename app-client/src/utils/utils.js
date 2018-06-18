@@ -42,3 +42,6 @@ export function extractProfileDataFromResponse(profile) {
 export function isPathForEditProfile(pathname) {
   return pathname === '/edit-profile';
 }
+export function isPathForCreateProfile(pathname) {
+  return pathname === '/create-profile';
+}

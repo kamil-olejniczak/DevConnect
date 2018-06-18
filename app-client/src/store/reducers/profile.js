@@ -8,7 +8,8 @@ export const initialState = {
 
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.PROFILE_IS_LOADING: {
+    case actionTypes.PROFILE_IS_LOADING:
+    case actionTypes.PROFILES_ARE_LOADING: {
       return {
         ...state,
         isDataLoading: true
@@ -41,6 +42,14 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.payload,
+        isDataLoading: false
+      };
+    }
+    case actionTypes.GET_PROFILES:
+    case actionTypes.PROFILES_NOT_FOUND: {
+      return {
+        ...state,
+        profiles: action.payload,
         isDataLoading: false
       };
     }
