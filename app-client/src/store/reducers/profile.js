@@ -29,6 +29,22 @@ const profileReducer = (state = initialState, action) => {
         isDataLoading: false
       };
     }
+    case actionTypes.GET_PROFILES:
+    case actionTypes.PROFILES_NOT_FOUND: {
+      return {
+        ...state,
+        profiles: action.payload,
+        isDataLoading: false
+      };
+    }
+    case actionTypes.GET_PROFILE_BY_HANDLE:
+    case actionTypes.PROFILE_BY_HANDLE_NOT_FOUND: {
+      return {
+        ...state,
+        profile: action.payload,
+        isDataLoading: false
+      };
+    }
     case actionTypes.CREATE_PROFILE:
     case actionTypes.UPDATE_PROFILE: {
       return {
@@ -48,14 +64,6 @@ const profileReducer = (state = initialState, action) => {
       return {
         ...state,
         profile: action.payload,
-        isDataLoading: false
-      };
-    }
-    case actionTypes.GET_PROFILES:
-    case actionTypes.PROFILES_NOT_FOUND: {
-      return {
-        ...state,
-        profiles: action.payload,
         isDataLoading: false
       };
     }

@@ -18,6 +18,16 @@ export const getProfiles = payload => ({
   payload
 });
 
+export const initGetProfileByHandle = payload => ({
+  type: profileActions.INIT_GET_PROFILE_BY_HANDLE,
+  payload
+});
+
+export const getProfileByHandle = payload => ({
+  type: profileActions.GET_PROFILE_BY_HANDLE,
+  payload
+});
+
 export const initCreateProfile = (payload, history) => ({
   type: profileActions.INIT_CREATE_PROFILE,
   payload,
@@ -47,6 +57,11 @@ export const profileNotFound = payload => ({
 
 export const profilesNotFound = payload => ({
   type: profileActions.PROFILES_NOT_FOUND,
+  payload
+});
+
+export const profileByHandleNotFound = payload => ({
+  type: profileActions.PROFILE_BY_HANDLE_NOT_FOUND,
   payload
 });
 

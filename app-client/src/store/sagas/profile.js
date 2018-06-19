@@ -8,9 +8,9 @@ export function* getProfileSaga() {
   try {
     yield put(profileActions.profileIsLoading());
     const response = yield axios.get('/api/profile');
-    const payload = response.data;
+    const data = response.data;
 
-    yield put(profileActions.getProfile(payload));
+    yield put(profileActions.getProfile(data));
   } catch (error) {
     if (error.response.status === 500) {
       yield put(profileActions.profileCanNotBeLoaded());
@@ -25,11 +25,28 @@ export function* getProfilesSaga() {
   try {
     yield put(profileActions.profilesAreLoading());
     const response = yield axios.get('/api/profile/all');
-    const payload = response.data;
+    const data = response.data;
 
-    yield put(profileActions.getProfiles(payload));
+    yield put(profileActions.getProfiles(data));
   } catch (error) {
     yield put(profileActions.profilesNotFound({userWithoutProfiles: true}));
+  }
+}
+
+export function* getProfileByHandleSaga({payload}) {
+  try {
+    yield put(profileActions.profileIsLoading());
+    const response = yield axios.get('/api/profile/handle/' + payload);
+    const data = response.data;
+
+    yield put(profileActions.getProfileByHandle(data));
+  } catch (error) {
+    if (error.response.status === 500) {
+      yield put(profileActions.profileCanNotBeLoaded());
+      yield put(errorActions.serverIsOffline({serverStatus: 'Server is currently offline! Please try again later.'}));
+    } else {
+      yield put(profileActions.profileByHandleNotFound({handleNotFound: true}));
+    }
   }
 }
 
