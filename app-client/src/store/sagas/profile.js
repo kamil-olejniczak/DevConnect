@@ -12,7 +12,12 @@ export function* getProfileSaga() {
 
     yield put(profileActions.getProfile(payload));
   } catch (error) {
-    yield put(profileActions.profileNotFound({userWithoutProfile: true}));
+    if (error.response.status === 500) {
+      yield put(profileActions.profileCanNotBeLoaded());
+      yield put(errorActions.serverIsOffline({serverStatus: 'Server is currently offline! Please try again later.'}));
+    } else {
+      yield put(profileActions.profileNotFound({userWithoutProfile: true}));
+    }
   }
 }
 

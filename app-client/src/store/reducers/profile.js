@@ -15,6 +15,12 @@ const profileReducer = (state = initialState, action) => {
         isDataLoading: true
       };
     }
+    case actionTypes.PROFILE_CAN_NOT_BE_LOADED: {
+      return {
+        ...state,
+        isDataLoading: false
+      }
+    }
     case actionTypes.GET_PROFILE:
     case actionTypes.PROFILE_NOT_FOUND: {
       return {

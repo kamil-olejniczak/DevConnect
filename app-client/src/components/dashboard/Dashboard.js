@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import Experience from './Experience';
 import Education from './Education';
+import isEmpty from '../../utils/emptyObjectValidator';
 
 class Dashboard extends Component {
   componentDidMount() {
@@ -20,11 +21,12 @@ class Dashboard extends Component {
   render() {
     const user = this.props.user;
     const {profile, isDataLoading} = this.props.profile;
+    const {errors} = this.props;
 
     let dashboardContent;
-    if (isDataLoading || Object.keys(profile).length === 0) {
+    if (isDataLoading || isEmpty(profile) && isEmpty(errors)) {
       dashboardContent = (<Spinner/>);
-    } else if (!isDataLoading && !profile.userWithoutProfile) {
+    } else if (!isDataLoading && !profile.userWithoutProfile && !errors.serverStatus) {
       dashboardContent = (
         <div>
           <p className="lead text-muted">
@@ -40,12 +42,15 @@ class Dashboard extends Component {
           </div>
         </div>
       );
-    } else if (profile.userWithoutProfile) {
+    } else if (profile.userWithoutProfile || errors.serverStatus) {
       dashboardContent = (
         <div>
           <p className="lead text-muted">Welcome {user.name}</p>
-          <p>Currently you did not setup a profile yet, please add some information about you.</p>
-          <Link className="btn btn-md btn-info" to="/create-profile">Click here to create a new profile!</Link>
+          {errors.serverStatus ? (<p>{errors.serverStatus}</p>) :
+            (<div>
+              <p>Currently you did not setup a profile yet, please add some information about you.</p>
+              <Link className="btn btn-md btn-info" to="/create-profile">Click here to create a new profile!</Link>
+            </div>)}
         </div>
       );
     }
@@ -68,13 +73,15 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   initGetProfile: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired
+  profile: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     user: state.auth.user,
-    profile: state.profile
+    profile: state.profile,
+    errors: state.errors
   };
 };
 

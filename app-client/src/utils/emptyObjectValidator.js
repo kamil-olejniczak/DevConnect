@@ -4,4 +4,4 @@ const isEmpty = object =>
   (typeof object === "object" && Object.keys(object).length === 0) ||
   (typeof object === "string" && object.trim().length === 0);
 
-module.exports = isEmpty;
+export default isEmpty;

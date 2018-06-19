@@ -54,6 +54,10 @@ export const profileIsLoading = () => ({
   type: profileActions.PROFILE_IS_LOADING
 });
 
+export const profileCanNotBeLoaded = () => ({
+  type: profileActions.PROFILE_CAN_NOT_BE_LOADED
+});
+
 export const profilesAreLoading = () => ({
   type: profileActions.PROFILES_ARE_LOADING
 });

@@ -48,3 +48,8 @@ export const removeEducationRequestNotProcessed = errors => ({
 export const cleanUpErrors = () => ({
   type: errorActions.CLEAN_UP_ERRORS
 });
+
+export const serverIsOffline = errors => ({
+  type: errorActions.SERVER_IS_OFFLINE,
+  errors
+});
