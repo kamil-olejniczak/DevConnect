@@ -24,7 +24,7 @@ class Dashboard extends Component {
     const {errors} = this.props;
 
     let dashboardContent;
-    if (isDataLoading || isEmpty(profile) && isEmpty(errors)) {
+    if (isDataLoading || (isEmpty(profile) && isEmpty(errors))) {
       dashboardContent = (<Spinner/>);
     } else if (!isDataLoading && !profile.userWithoutProfile && !errors.serverStatus) {
       dashboardContent = (
@@ -60,7 +60,7 @@ class Dashboard extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <h1 className="display-4">Dashboard</h1>
+              <h1 className="display-4 text-center">Dashboard</h1>
               {dashboardContent}
             </div>
           </div>
