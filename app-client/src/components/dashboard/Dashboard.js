@@ -19,7 +19,7 @@ class Dashboard extends Component {
   };
 
   render() {
-    const user = this.props.user;
+    const {user} = this.props;
     const {profile, isDataLoading} = this.props.profile;
     const {errors} = this.props;
 
@@ -30,7 +30,7 @@ class Dashboard extends Component {
       dashboardContent = (
         <div>
           <p className="lead text-muted">
-            Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+            Welcome <Link to={`/developers/${profile.handle}`}>{user.name}</Link>
           </p>
           <ProfileActions/>
           <Experience experience={profile.experience}/>

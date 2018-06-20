@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom';
 import ProfileHeader from './elements/ProfileHeader';
 import ProfileAbout from './elements/ProfileAbout';
 import ProfileCredentials from './elements/ProfileCredentials';
+import ProfileGitHub from './elements/ProfileGitHub';
 
 class DeveloperProfile extends Component {
   componentDidMount() {
@@ -26,6 +27,7 @@ class DeveloperProfile extends Component {
           <ProfileHeader profile={profile}/>
           <ProfileAbout profile={profile}/>
           <ProfileCredentials education={profile.education} experience={profile.experience}/>
+          {profile.gitHubUsername ? <ProfileGitHub gitHubUsername={profile.gitHubUsername}/> : null}
         </div>
       );
     } else if (profile.handleNotFound) {
@@ -40,7 +42,7 @@ class DeveloperProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-12">
-              <Link className="btn btn-light" to="/profiles">
+              <Link className="btn btn-light" to="/developers">
                 Go Back To Profiles
               </Link>
               <h1 className="display-4 text-center">Developer Profile</h1>
