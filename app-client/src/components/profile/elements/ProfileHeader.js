@@ -28,6 +28,11 @@ class ProfileHeader extends Component {
                     <i className="fas fa-globe fa-2x"></i>
                   </a>
                 )}
+                {isEmpty(profile.social && profile.social.youtube) ? null : (
+                  <a className="text-info p-2" href={profile.social.youtube} target="_blank">
+                    <i className="fab fa-youtube fa-2x"></i>
+                  </a>
+                )}
                 {isEmpty(profile.social && profile.social.twitter) ? null : (
                   <a className="text-info p-2" href={profile.social.twitter} target="_blank">
                     <i className="fab fa-twitter fa-2x"></i>
