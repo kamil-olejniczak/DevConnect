@@ -28,6 +28,16 @@ export const getProfileByHandle = payload => ({
   payload
 });
 
+export const initGetGitHubRepos = username => ({
+  type: profileActions.INIT_GET_GIT_HUB_REPOS,
+  username
+});
+
+export const getGitHubRepos = payload => ({
+  type: profileActions.GET_GIT_HUB_REPOS,
+  payload
+});
+
 export const initCreateProfile = (payload, history) => ({
   type: profileActions.INIT_CREATE_PROFILE,
   payload,
@@ -62,6 +72,11 @@ export const profilesNotFound = payload => ({
 
 export const profileByHandleNotFound = payload => ({
   type: profileActions.PROFILE_BY_HANDLE_NOT_FOUND,
+  payload
+});
+
+export const gitHubReposNotFound = payload => ({
+  type: profileActions.GIT_HUB_REPOS_NOT_FOUND,
   payload
 });
 

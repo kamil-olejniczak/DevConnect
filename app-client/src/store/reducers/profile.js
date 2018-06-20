@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/actionTypes';
 export const initialState = {
   profile: {},
   profiles: [],
+  repos: [],
   isDataLoading: false
 };
 
@@ -43,6 +44,13 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         profile: action.payload,
         isDataLoading: false
+      };
+    }
+    case actionTypes.GET_GIT_HUB_REPOS:
+    case actionTypes.GIT_HUB_REPOS_NOT_FOUND: {
+      return {
+        ...state,
+        repos: action.payload,
       };
     }
     case actionTypes.CREATE_PROFILE:

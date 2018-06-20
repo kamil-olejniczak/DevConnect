@@ -5,7 +5,7 @@ import isEmpty from '../../../utils/emptyObjectValidator';
 class ProfileAbout extends Component {
   render() {
     const {profile} = this.props;
-    const userSkills = profile.skills.map((skill, index) => (
+    const developerSkills = profile.skills.map((skill, index) => (
       <div key={index} className="p-3">
         <i className="fa fa-caret-right"></i> {skill}
       </div>
@@ -20,7 +20,7 @@ class ProfileAbout extends Component {
             <h3 className="text-center text-info">Skill Set</h3>
             <div className="row justify-content-center">
               <div className="d-flex flex-wrap align-items-center">
-                {userSkills}
+                {developerSkills}
               </div>
             </div>
           </div>

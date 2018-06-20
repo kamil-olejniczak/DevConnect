@@ -6,7 +6,7 @@
 .beat-container {
     position: relative;
     width: 5%;
-    margin: 0 auto;
+    margin: 50px auto 0;
     display: table;
     height: 20px;
 }

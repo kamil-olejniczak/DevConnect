@@ -50,6 +50,22 @@ export function* getProfileByHandleSaga({payload}) {
   }
 }
 
+export function* getGitHubReposSaga({username}) {
+  const tokenFromAuthorizationHeader = axios.defaults.headers.common['Authorization'];
+  delete axios.defaults.headers.common['Authorization'];
+  try {
+    const response = yield axios.get(
+      `https://api.github.com/users/kamil-olejniczak/repos?per_page=4&sort=created:asc`);
+    const data = response.data;
+
+    yield put(profileActions.getGitHubRepos(data));
+  } catch (error) {
+    yield put(profileActions.gitHubReposNotFound({reposNotFound: true}));
+  } finally {
+    axios.defaults.headers.common['Authorization'] = tokenFromAuthorizationHeader;
+  }
+}
+
 export function* createProfileSaga({payload, history}) {
   try {
     const response = yield axios.post('/api/profile', payload);

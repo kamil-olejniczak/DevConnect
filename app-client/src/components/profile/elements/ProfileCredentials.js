@@ -7,7 +7,7 @@ class ProfileCredentials extends Component {
   render() {
     const {education, experience} = this.props;
 
-    const userExperience = experience.map(exp => (
+    const developerExperience = experience.map(exp => (
       <li key={exp._id} className="list-group-item">
         <h4>{exp.company}</h4>
         <p><strong>Position: </strong>{exp.title}</p>
@@ -20,7 +20,7 @@ class ProfileCredentials extends Component {
         </p>
       </li>
     ));
-    const userEducation = education.map(edu => (
+    const developerEducation = education.map(edu => (
       <li key={edu._id} className="list-group-item">
         <h4>{edu.school}</h4>
         <p><strong>Degree: </strong>{edu.degree}</p>
@@ -36,22 +36,22 @@ class ProfileCredentials extends Component {
     ));
     return (
       <div className="row">
-        <div className="col-lg-6">
+        <div className="col-lg-6 pr-1">
           <div className="card card-body bg-light mb-3">
             <h3 className="text-center text-info">Experience</h3>
-            {userExperience.length > 0 ? (
+            {developerExperience.length > 0 ? (
               <ul className="list-group">
-                {userExperience}
+                {developerExperience}
               </ul>
             ) : <p className="text-center mb-0">Developer has no experience listed.</p>}
           </div>
         </div>
-        <div className="col-lg-6">
+        <div className="col-lg-6 pl-1">
           <div className="card card-body bg-light mb-3">
             <h3 className="text-center text-info">Education</h3>
-            {userEducation.length > 0 ? (
+            {developerEducation.length > 0 ? (
               <ul className="list-group">
-                {userEducation}
+                {developerEducation}
               </ul>
             ) : <p className="text-center mb-0">Developer has no education listed.</p>}
           </div>
