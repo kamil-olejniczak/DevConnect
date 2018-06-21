@@ -46,7 +46,7 @@ class Dashboard extends Component {
       dashboardContent = (
         <div>
           <p className="lead text-muted">Welcome {user.name}</p>
-          {errors.serverStatus ? (<p>{errors.serverStatus}</p>) :
+          {errors.serverStatus ? (<p className="lead text-muted">{errors.serverStatus}</p>) :
             (<div>
               <p>Currently you did not setup a profile yet, please add some information about you.</p>
               <Link className="btn btn-md btn-info" to="/create-profile">Click here to create a new profile!</Link>

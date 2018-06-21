@@ -45,6 +45,11 @@ export const removeEducationRequestNotProcessed = errors => ({
   errors
 });
 
+export const createPostRequestNotProcessed = errors => ({
+  type: errorActions.CREATE_POST_REQUEST_NOT_PROCESSED,
+  errors
+});
+
 export const cleanUpErrors = () => ({
   type: errorActions.CLEAN_UP_ERRORS
 });

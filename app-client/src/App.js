@@ -20,6 +20,7 @@ import AddEducation from './components/add-education/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import DeveloperProfile from './components/profile/DeveloperProfile';
 import NotFound from './components/common/NotFound';
+import Posts from './components/posts/Posts';
 
 const token = localStorage.getItem('JWT_TOKEN');
 if (token) {
@@ -52,6 +53,7 @@ class App extends Component {
             <PrivateRoute path="/add-education" component={AddEducation} exact/>
             <PrivateRoute path="/developers" component={Profiles} exact/>
             <PrivateRoute path="/developers/:handle" component={DeveloperProfile} exact/>
+            <PrivateRoute path="/posts" component={Posts} exact/>
             < Route path="/" component={NotFound}/>
           </Switch>
           <Footer/>
