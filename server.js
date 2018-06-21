@@ -19,10 +19,6 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(error => console.log(error));
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
