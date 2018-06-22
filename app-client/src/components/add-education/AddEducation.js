@@ -113,7 +113,10 @@ class AddEducation extends Component {
                   onChange={this.onChange}
                   placeholder="Short education description"
                   value={this.state.description}/>
-                <input type="submit" className="btn btn-info btn-block mt-4"/>
+                <input
+                  type="submit"
+                  className="btn btn-info btn-block mt-4"
+                  disabled={this.props.profile.isDataLoading}/>
               </form>
             </div>
           </div>

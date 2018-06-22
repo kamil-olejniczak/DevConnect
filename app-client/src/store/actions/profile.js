@@ -134,6 +134,11 @@ export const initAddEducation = (payload, history) => ({
   history
 });
 
+export const addEducation = payload => ({
+  type: profileActions.ADD_EDUCATION,
+  payload
+});
+
 export const initRemoveEducation = (payload, history) => ({
   type: profileActions.INIT_REMOVE_EDUCATION,
   payload,
@@ -145,7 +150,10 @@ export const removeEducation = payload => ({
   payload
 });
 
-export const addEducation = payload => ({
-  type: profileActions.ADD_EDUCATION,
-  payload
+export const dataIsBeingSend = () => ({
+  type: profileActions.DATA_IS_BEING_SEND
+});
+
+export const dataWasSend = () => ({
+  type: profileActions.DATA_WAS_SEND
 });

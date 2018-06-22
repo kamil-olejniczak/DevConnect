@@ -10,13 +10,15 @@ export const initialState = {
 const profileReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.PROFILE_IS_LOADING:
-    case actionTypes.PROFILES_ARE_LOADING: {
+    case actionTypes.PROFILES_ARE_LOADING:
+    case actionTypes.DATA_IS_BEING_SEND: {
       return {
         ...state,
         isDataLoading: true
       };
     }
-    case actionTypes.PROFILE_CAN_NOT_BE_LOADED: {
+    case actionTypes.PROFILE_CAN_NOT_BE_LOADED:
+    case actionTypes.DATA_WAS_SEND: {
       return {
         ...state,
         isDataLoading: false
