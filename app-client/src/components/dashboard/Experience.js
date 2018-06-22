@@ -32,24 +32,26 @@ class Experience extends Component {
         </div>
       ))) : null;
     return (
-      <div>
-        {errorMessages}
-        <h4 className="mb-4">Experience</h4>
-        <table className="table">
-          <thead>
-          <tr>
-            <th>Company</th>
-            <th>Title</th>
-            <th>Years</th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          {experience}
-          </tbody>
-        </table>
-      </div>
-    );
+      this.props.experience.length !== 0 ? (
+        <div>
+          {errorMessages}
+          <h4 className="mb-4">Experience</h4>
+          <table className="table">
+            <thead>
+            <tr>
+              <th>Company</th>
+              <th>Title</th>
+              <th>Years</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            {experience}
+            </tbody>
+          </table>
+        </div>
+      ) : <p className="lead text-muted">You have no experience added. Feel free to add something!</p>
+    )
   }
 }
 

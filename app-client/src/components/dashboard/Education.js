@@ -50,7 +50,7 @@ class Education extends Component {
             </tbody>
           </table>
         </div>
-      ) : null
+      ) : <p className="lead text-muted">You have no education added. Feel free to add something!</p>
     )
   }
 }
