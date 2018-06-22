@@ -207,7 +207,10 @@ class CreateProfile extends Component {
                   </button>
                 </div>
                 {socialInputs}
-                <input type="submit" className="btn btn-info btn-block mt-4"/>
+                <input
+                  type="submit"
+                  className="btn btn-info btn-block mt-4"
+                  disabled={this.props.profile.isDataLoading}/>
               </form>
             </div>
           </div>

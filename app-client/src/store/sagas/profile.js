@@ -55,7 +55,7 @@ export function* getGitHubReposSaga({username}) {
   delete axios.defaults.headers.common['Authorization'];
   try {
     const response = yield axios.get(
-      `https://api.github.com/users/kamil-olejniczak/repos?per_page=4&sort=created:asc`);
+      `https://api.github.com/users/kamil-olejniczak/repos?per_page=4&sort=created:asc`); //TODO: should use username!
     const data = response.data;
 
     yield put(profileActions.getGitHubRepos(data));
@@ -68,24 +68,28 @@ export function* getGitHubReposSaga({username}) {
 
 export function* createProfileSaga({payload, history}) {
   try {
+    yield put(profileActions.dataIsBeingSend());
     const response = yield axios.post('/api/profile', payload);
     history.push('/dashboard');
 
     yield put(profileActions.createProfile(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(profileActions.dataWasSend());
     yield put(errorActions.createProfileRequestNotProcessed(error.response.data));
   }
 }
 
 export function* updateProfileSaga({payload, history}) {
   try {
+    yield put(profileActions.dataIsBeingSend());
     const response = yield axios.put('/api/profile', payload);
     history.push('/dashboard');
 
     yield put(profileActions.updateProfile(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(profileActions.dataWasSend());
     yield put(errorActions.updateProfileRequestNotProcessed(error.response.data));
   }
 }
@@ -105,11 +109,13 @@ export function* removeProfileAlongWithUserSaga({history}) {
 
 export function* addExperienceSaga({payload, history}) {
   try {
+    yield put(profileActions.dataIsBeingSend());
     const response = yield axios.post('/api/profile/experience', payload);
     history.push('/dashboard');
     yield put(profileActions.addExperience(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(profileActions.dataWasSend());
     yield put(errorActions.addExperienceRequestNotProcessed(error.response.data));
   }
 }
@@ -127,12 +133,14 @@ export function* removeExperienceSaga({payload}) {
 
 export function* addEducationSaga({payload, history}) {
   try {
+    yield put(profileActions.dataIsBeingSend());
     const response = yield axios.post('/api/profile/education', payload);
     history.push('/dashboard');
 
     yield put(profileActions.addEducation(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(profileActions.dataWasSend());
     yield put(errorActions.addEducationRequestNotProcessed(error.response.data));
   }
 }
