@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {initGetProfiles} from '../../store/actions/profile';
 import ProfileItem from './ProfileItem';
+import isEmpty from '../../utils/emptyObjectValidator';
 
 class Profiles extends Component {
   componentDidMount() {
@@ -12,20 +13,21 @@ class Profiles extends Component {
 
   render() {
     const {profiles} = this.props.profile;
+    const {errors} = this.props;
     const {isDataLoading} = this.props.common;
     let renderedProfiles;
 
-    if (isDataLoading || profiles.length === 0) {
+    if (isDataLoading || (isEmpty(profiles) && isEmpty(errors))) {
       renderedProfiles = (<Spinner/>);
-    } else if (!isDataLoading && !profiles.userWithoutProfiles) {
+    } else if (!isDataLoading && !profiles.profilesNotFound && !errors.serverStatus) {
       renderedProfiles = (profiles.map(profile => (<ProfileItem key={profile._id} profile={profile}/>)));
-    } else if (profiles.userWithoutProfiles) {
-      renderedProfiles = (
+    } else if (profiles.profilesNotFound || errors.serverStatus) {
+      renderedProfiles = errors.serverStatus ? (<p className="lead text-muted">{errors.serverStatus}</p>) : (
         <div>
-          <p className="lead text-muted">Currently there are no profiles in database.</p>
-        </div>
-      );
+          <p className="lead text-muted">Currently there are no profiles in database. Feel free to add yours!</p>
+        </div>);
     }
+
     return (
       <div className="profiles">
         <div className="container">
