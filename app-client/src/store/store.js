@@ -6,6 +6,7 @@ import errorReducer from './reducers/error';
 import profileReducer from './reducers/profile';
 import browserErrorMiddleware from './middleware/browserError';
 import postReducer from './reducers/post';
+import commonReducer from './reducers/common';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -15,6 +16,7 @@ const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware, browserErrorM
 
 const rootReducer = combineReducers({
   auth: authReducer,
+  common: commonReducer,
   errors: errorReducer,
   post: postReducer,
   profile: profileReducer
