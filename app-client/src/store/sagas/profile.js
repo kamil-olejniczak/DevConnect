@@ -15,7 +15,7 @@ export function* getProfileSaga() {
   } catch (error) {
     if (error.response.status === 500) {
       yield put(profileActions.profileCanNotBeLoaded());
-      yield put(errorActions.serverIsOffline({serverStatus: 'Server is currently offline! Please try again later.'}));
+      yield put(errorActions.serverIsOffline());
     } else {
       yield put(profileActions.profileNotFound({userWithoutProfile: true}));
     }
@@ -30,7 +30,7 @@ export function* getProfilesSaga() {
 
     yield put(profileActions.getProfiles(data));
   } catch (error) {
-    yield put(profileActions.profilesNotFound({userWithoutProfiles: true}));
+    yield put(profileActions.profilesNotFound({profilesNotFound: true}));
   }
 }
 
@@ -44,7 +44,7 @@ export function* getProfileByHandleSaga({payload}) {
   } catch (error) {
     if (error.response.status === 500) {
       yield put(profileActions.profileCanNotBeLoaded());
-      yield put(errorActions.serverIsOffline({serverStatus: 'Server is currently offline! Please try again later.'}));
+      yield put(errorActions.serverIsOffline());
     } else {
       yield put(profileActions.profileByHandleNotFound({handleNotFound: true}));
     }

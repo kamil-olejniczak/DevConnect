@@ -14,7 +14,7 @@ export function* getPostsSaga() {
   } catch (error) {
     if (error.response.status === 500) {
       yield put(postActions.postsCanNotBeLoaded());
-      yield put(errorActions.serverIsOffline({serverStatus: 'Server is currently offline! Please try again later.'}));
+      yield put(errorActions.serverIsOffline());
     } else {
       yield put(postActions.postsNotFound({postsNotFound: true}));
     }

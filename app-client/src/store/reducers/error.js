@@ -13,9 +13,13 @@ const errorReducer = (state = initialState, action) => {
     case actionTypes.REMOVE_EXPERIENCE_REQUEST_NOT_PROCESSED:
     case actionTypes.ADD_EDUCATION_REQUEST_NOT_PROCESSED:
     case actionTypes.REMOVE_EDUCATION_REQUEST_NOT_PROCESSED:
-    case actionTypes.CREATE_POST_REQUEST_NOT_PROCESSED:
-    case actionTypes.SERVER_IS_OFFLINE: {
+    case actionTypes.CREATE_POST_REQUEST_NOT_PROCESSED: {
       return action.errors
+    }
+    case actionTypes.SERVER_IS_OFFLINE: {
+      return {
+        serverStatus: 'Server is currently offline! Please try again later.'
+      }
     }
     case actionTypes.CLEAN_UP_ERRORS: {
       return {};
