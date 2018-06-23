@@ -9,10 +9,9 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import jwt_decode from 'jwt-decode';
 import {addAuthorizationHeader} from './utils/utils';
-import {initLogoutUser, loginUser} from './store/actions/auth';
+import {initTokenHasExpired, loginUser} from './store/actions/auth';
 import store from './store/store';
 import './App.css';
-import {cleanUpCurrentProfile} from './store/actions/profile';
 import CreateProfile from './components/create-profile/CreateProfile';
 import AddExperience from './components/add-experience/AddExperience';
 import PublicRoute from './components/common/PublicRoute';
@@ -29,10 +28,10 @@ if (token) {
   const currentTime = Date.now() / 1000;
 
   if (decoded.exp < currentTime) {
-    store.dispatch(initLogoutUser());
-    store.dispatch(cleanUpCurrentProfile())
+    store.dispatch(initTokenHasExpired());
   } else {
-    store.dispatch(loginUser(decoded));
+    const timeLeft = (decoded.exp - currentTime);
+    store.dispatch(loginUser(decoded, timeLeft));
   }
 }
 
@@ -54,7 +53,7 @@ class App extends Component {
             <PrivateRoute path="/developers" component={Profiles} exact/>
             <PrivateRoute path="/developers/:handle" component={DeveloperProfile} exact/>
             <PrivateRoute path="/posts" component={Posts} exact/>
-            < Route path="/" component={NotFound}/>
+            < Route path="/*" component={NotFound}/>
           </Switch>
           <Footer/>
         </div>

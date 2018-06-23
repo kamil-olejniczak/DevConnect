@@ -7,12 +7,13 @@ import profileReducer from './reducers/profile';
 import browserErrorMiddleware from './middleware/browserError';
 import postReducer from './reducers/post';
 import commonReducer from './reducers/common';
+import tokenExpirationMiddleware from './middleware/tokenExpiration';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware, browserErrorMiddleware));
+const enhancers = composeEnhancers(applyMiddleware(sagaMiddleware, browserErrorMiddleware, tokenExpirationMiddleware));
 
 const rootReducer = combineReducers({
   auth: authReducer,

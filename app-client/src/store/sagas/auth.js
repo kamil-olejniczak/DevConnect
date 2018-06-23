@@ -31,7 +31,8 @@ export function* loginUserSaga({payload, history}) {
     addAuthorizationHeader(token);
 
     const decoded = jwt_decode(token);
-    yield put(loginUser(decoded));
+    const timeLeft = 3600;
+    yield put(loginUser(decoded, timeLeft));
 
     history.push('/dashboard');
     yield put(cleanUpErrors());
@@ -46,4 +47,9 @@ export function* logoutUserSaga() {
 
   yield put(cleanUpCurrentProfile());
   yield put(logoutUser());
+}
+
+export function* expiredTokenSaga() {
+  yield* logoutUserSaga();
+  yield put(cleanUpCurrentProfile());
 }

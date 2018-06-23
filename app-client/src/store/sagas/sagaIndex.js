@@ -1,6 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import {all, takeEvery} from 'redux-saga/effects';
-import {loginUserSaga, logoutUserSaga, saveNewUserSaga} from './auth';
+import {expiredTokenSaga, loginUserSaga, logoutUserSaga, saveNewUserSaga} from './auth';
 import {
   addEducationSaga,
   addExperienceSaga,
@@ -20,6 +20,7 @@ const watchAuth = [
   takeEvery(actionTypes.INIT_SAVE_NEW_USER, saveNewUserSaga),
   takeEvery(actionTypes.INIT_LOGIN_USER, loginUserSaga),
   takeEvery(actionTypes.INIT_LOGOUT_USER, logoutUserSaga),
+  takeEvery(actionTypes.INIT_TOKEN_HAS_EXPIRED, expiredTokenSaga),
 ];
 
 const watchProfile = [
