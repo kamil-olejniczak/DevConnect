@@ -1,7 +1,8 @@
 import axios from 'axios/index';
 import * as postActions from '../actions/post';
-import {put} from 'redux-saga/effects';
+import * as commonActions from '../actions/common';
 import * as errorActions from '../actions/error';
+import {put} from 'redux-saga/effects';
 
 export function* getPostsSaga() {
   try {
@@ -22,11 +23,13 @@ export function* getPostsSaga() {
 
 export function* createPostSaga({payload}) {
   try {
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.post('/api/posts', payload);
 
     yield put(postActions.createPost(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.createPostRequestNotProcessed(error.response.data));
   }
 }

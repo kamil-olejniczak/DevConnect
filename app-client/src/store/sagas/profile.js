@@ -1,7 +1,8 @@
 import axios from 'axios/index';
 import * as profileActions from '../actions/profile';
-import {put} from 'redux-saga/effects';
+import * as commonActions from '../actions/common';
 import * as errorActions from '../actions/error';
+import {put} from 'redux-saga/effects';
 import {logoutUserSaga} from './auth';
 
 export function* getProfileSaga() {
@@ -68,28 +69,28 @@ export function* getGitHubReposSaga({username}) {
 
 export function* createProfileSaga({payload, history}) {
   try {
-    yield put(profileActions.dataIsBeingSend());
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.post('/api/profile', payload);
     history.push('/dashboard');
 
     yield put(profileActions.createProfile(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
-    yield put(profileActions.dataWasSend());
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.createProfileRequestNotProcessed(error.response.data));
   }
 }
 
 export function* updateProfileSaga({payload, history}) {
   try {
-    yield put(profileActions.dataIsBeingSend());
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.put('/api/profile', payload);
     history.push('/dashboard');
 
     yield put(profileActions.updateProfile(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
-    yield put(profileActions.dataWasSend());
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.updateProfileRequestNotProcessed(error.response.data));
   }
 }
@@ -109,13 +110,13 @@ export function* removeProfileAlongWithUserSaga({history}) {
 
 export function* addExperienceSaga({payload, history}) {
   try {
-    yield put(profileActions.dataIsBeingSend());
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.post('/api/profile/experience', payload);
     history.push('/dashboard');
     yield put(profileActions.addExperience(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
-    yield put(profileActions.dataWasSend());
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.addExperienceRequestNotProcessed(error.response.data));
   }
 }
@@ -133,14 +134,14 @@ export function* removeExperienceSaga({payload}) {
 
 export function* addEducationSaga({payload, history}) {
   try {
-    yield put(profileActions.dataIsBeingSend());
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.post('/api/profile/education', payload);
     history.push('/dashboard');
 
     yield put(profileActions.addEducation(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
-    yield put(profileActions.dataWasSend());
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.addEducationRequestNotProcessed(error.response.data));
   }
 }

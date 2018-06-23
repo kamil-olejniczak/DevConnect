@@ -11,7 +11,8 @@ class Profiles extends Component {
   }
 
   render() {
-    const {profiles, isDataLoading} = this.props.profile;
+    const {profiles} = this.props.profile;
+    const {isDataLoading} = this.props.common;
     let renderedProfiles;
 
     if (isDataLoading || profiles.length === 0) {
@@ -45,14 +46,16 @@ class Profiles extends Component {
 
 Profiles.propTypes = {
   initGetProfiles: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  common: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    profile: state.profile,
-    errors: state.errors
+    common: state.common,
+    errors: state.errors,
+    profile: state.profile
   };
 };
 

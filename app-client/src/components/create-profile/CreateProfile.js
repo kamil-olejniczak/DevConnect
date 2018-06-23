@@ -210,7 +210,7 @@ class CreateProfile extends Component {
                 <input
                   type="submit"
                   className="btn btn-info btn-block mt-4"
-                  disabled={this.props.profile.isDataLoading}/>
+                  disabled={this.props.isDataLoading}/>
               </form>
             </div>
           </div>
@@ -226,7 +226,7 @@ CreateProfile.propTypes = {
   initUpdateProfile: PropTypes.func.isRequired,
   cleanUpErrors: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {

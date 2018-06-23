@@ -149,11 +149,3 @@ export const removeEducation = payload => ({
   type: profileActions.REMOVE_EDUCATION,
   payload
 });
-
-export const dataIsBeingSend = () => ({
-  type: profileActions.DATA_IS_BEING_SEND
-});
-
-export const dataWasSend = () => ({
-  type: profileActions.DATA_WAS_SEND
-});

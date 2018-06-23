@@ -16,7 +16,8 @@ class DeveloperProfile extends Component {
   }
 
   render() {
-    const {profile, isDataLoading} = this.props.profile;
+    const {profile} = this.props.profile;
+    const {isDataLoading} = this.props.common;
     let renderedProfile;
 
     if (isDataLoading || isEmpty(profile)) {
@@ -60,11 +61,13 @@ class DeveloperProfile extends Component {
 
 DeveloperProfile.propTypes = {
   initGetProfileByHandle: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
+  common: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    common: state.common,
     profile: state.profile
   };
 };

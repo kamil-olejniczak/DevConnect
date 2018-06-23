@@ -20,7 +20,8 @@ class Dashboard extends Component {
 
   render() {
     const {user} = this.props;
-    const {profile, isDataLoading} = this.props.profile;
+    const {profile} = this.props.profile;
+    const {isDataLoading} = this.props.common;
     const {errors} = this.props;
 
     let dashboardContent;
@@ -72,16 +73,18 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   initGetProfile: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  common: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  user: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user,
+    common: state.common,
+    errors: state.errors,
     profile: state.profile,
-    errors: state.errors
+    user: state.auth.user
   };
 };
 

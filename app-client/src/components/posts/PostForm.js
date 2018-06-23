@@ -44,7 +44,7 @@ class PostForm extends Component {
                 <button
                   className="btn btn-info"
                   type="submit"
-                  disabled={!!this.props.errors.serverStatus}>Submit
+                  disabled={!!this.props.errors.serverStatus || this.props.isDataLoading}>Submit
                 </button>
               </div>
             </form>
@@ -58,13 +58,15 @@ class PostForm extends Component {
 PostForm.propTypes = {
   initCreatePost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  isDataLoading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    errors: state.errors
+    errors: state.errors,
+    isDataLoading: state.common.isDataLoading
   };
 };
 

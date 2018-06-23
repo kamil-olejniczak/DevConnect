@@ -76,7 +76,10 @@ class Register extends Component {
                   required={true}
                   type="password"
                   value={this.state.confirmPassword}/>
-                <input type="submit" className="btn btn-info btn-block mt-4"/>
+                <input
+                  type="submit"
+                  className="btn btn-info btn-block mt-4"
+                  disabled={this.props.isDataLoading}/>
               </form>
             </div>
           </div>
@@ -87,18 +90,20 @@ class Register extends Component {
 }
 
 Register.propTypes = {
-  initSaveNewUser: PropTypes.func.isRequired,
   cleanUpErrors: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  initSaveNewUser: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool.isRequired,
+  isDataLoading: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
   errors: PropTypes.object
 };
 
 const mapStateToProps = state => {
   return {
+    errors: state.errors,
     isAuthenticated: state.auth.isAuthenticated,
-    user: state.auth.user,
-    errors: state.errors
+    isDataLoading: state.common.isDataLoading,
+    user: state.auth.user
   };
 };
 

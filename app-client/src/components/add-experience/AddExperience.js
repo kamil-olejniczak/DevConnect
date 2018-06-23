@@ -116,7 +116,7 @@ class AddExperience extends Component {
                 <input
                   type="submit"
                   className="btn btn-info btn-block mt-4"
-                  disabled={this.props.profile.isDataLoading}/>
+                  disabled={this.props.isDataLoading}/>
               </form>
             </div>
           </div>
@@ -128,14 +128,16 @@ class AddExperience extends Component {
 
 AddExperience.propTypes = {
   initAddExperience: PropTypes.func.isRequired,
-  profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  isDataLoading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    errors: state.errors,
     profile: state.profile,
-    errors: state.errors
+    isDataLoading: state.common.isDataLoading
   };
 };
 

@@ -13,8 +13,9 @@ class Posts extends Component {
   }
 
   render() {
-    const {posts, isDataLoading} = this.props.post;
+    const {posts} = this.props.post;
     const {errors} = this.props;
+    const {isDataLoading} = this.props.common;
     let renderedPosts;
 
     if (isDataLoading || (isEmpty(posts) && isEmpty(errors))) {
@@ -46,12 +47,14 @@ class Posts extends Component {
 
 Posts.propTypes = {
   initGetPosts: PropTypes.func.isRequired,
+  common: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
+    common: state.common,
     post: state.post,
     errors: state.errors
   };
