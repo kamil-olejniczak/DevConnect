@@ -6,7 +6,7 @@ function getPosts(req, res) {
   Post.find()
     .sort({date: -1})
     .then(posts => {
-      if (!posts) {
+      if (posts.length === 0) {
         errors.posts = "No posts found!";
         return res.status(404).json(errors);
       }

@@ -55,7 +55,7 @@ function getProfiles(req, res) {
   Profile.find()
     .populate("user", ["name", "avatar"])
     .then(profiles => {
-      if (!profiles) {
+      if (profiles.length === 0) {
         errors.profile = "There are no profiles in database!";
         return res.status(404).json(errors);
       }
