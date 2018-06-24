@@ -17,10 +17,9 @@ export const initLoginUser = (payload, history) => ({
   history
 });
 
-export const loginUser = (payload, timeLeft) => ({
+export const loginUser = (payload) => ({
   type: authActions.LOGIN_USER,
-  payload,
-  timeLeft
+  payload
 });
 
 export const initLogoutUser = () => ({

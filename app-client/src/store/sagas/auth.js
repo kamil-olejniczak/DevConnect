@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {put} from 'redux-saga/effects';
-import {loginUser, logoutUser, saveNewUser} from '../actions/auth';
+import {logoutUser, saveNewUser} from '../actions/auth';
+import loginUserAndSetExpirationTime from '../middleware/tokenExpiration';
 import {cleanUpErrors, loginUserRequestNotProcessed, saveNewUserRequestNotProcessed} from '../actions/error';
 import {cleanUpCurrentProfile} from '../actions/profile';
 import * as commonActions from '../actions/common';
@@ -31,8 +32,7 @@ export function* loginUserSaga({payload, history}) {
     addAuthorizationHeader(token);
 
     const decoded = jwt_decode(token);
-    const timeLeft = 3600;
-    yield put(loginUser(decoded, timeLeft));
+    loginUserAndSetExpirationTime(decoded);
 
     history.push('/dashboard');
     yield put(cleanUpErrors());

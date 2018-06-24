@@ -9,7 +9,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import jwt_decode from 'jwt-decode';
 import {addAuthorizationHeader} from './utils/utils';
-import {initTokenHasExpired, loginUser} from './store/actions/auth';
+import {initTokenHasExpired} from './store/actions/auth';
 import store from './store/store';
 import './App.css';
 import CreateProfile from './components/create-profile/CreateProfile';
@@ -20,6 +20,7 @@ import Profiles from './components/profiles/Profiles';
 import DeveloperProfile from './components/profile/DeveloperProfile';
 import NotFound from './components/common/NotFound';
 import Posts from './components/posts/Posts';
+import loginUserAndSetExpirationTime from './store/middleware/tokenExpiration';
 
 const token = localStorage.getItem('JWT_TOKEN');
 if (token) {
@@ -31,7 +32,7 @@ if (token) {
     store.dispatch(initTokenHasExpired());
   } else {
     const timeLeft = (decoded.exp - currentTime);
-    store.dispatch(loginUser(decoded, timeLeft));
+    loginUserAndSetExpirationTime(decoded, timeLeft);
   }
 }
 

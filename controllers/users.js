@@ -73,12 +73,12 @@ function loginUser(req, res) {
             name: user.name,
             avatar: user.avatar
           };
-          jwt.sign(payload, process.env.SECRET_JWT_TOKEN, {expiresIn: 3600}, (error, token) => {
-            return res.json({
+          jwt.sign(payload, process.env.SECRET_JWT_TOKEN, {expiresIn: 3600}, (error, token) => (
+            res.json({
               success: true,
               token: "Bearer " + token
-            });
-          });
+            })
+          ));
         } else {
           errors.password = "Password or email is invalid!";
           return res.status(404).json(errors);
