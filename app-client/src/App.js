@@ -52,7 +52,8 @@ class App extends Component {
             <PrivateRoute path="/add-experience" component={AddExperience} exact/>
             <PrivateRoute path="/add-education" component={AddEducation} exact/>
             <PrivateRoute path="/developers" component={Profiles} exact/>
-            <PrivateRoute path="/developers/:handle" component={DeveloperProfile} exact/>
+            <PrivateRoute path="/developers/handle/:handle" component={DeveloperProfile} exact/>
+            <PrivateRoute path="/developers/user/:id" component={DeveloperProfile} exact/>
             <PrivateRoute path="/posts" component={Posts} exact/>
             < Route path="/*" component={NotFound}/>
           </Switch>

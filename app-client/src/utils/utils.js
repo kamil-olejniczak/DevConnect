@@ -42,6 +42,15 @@ export function extractProfileDataFromResponse(profile) {
 export function isPathForEditProfile(pathname) {
   return pathname === '/edit-profile';
 }
+
 export function isPathForCreateProfile(pathname) {
   return pathname === '/create-profile';
+}
+
+export function isPathForGetUserByHandle(pathname) {
+  return pathname.includes('handle');
+}
+
+export function isPathForGetUserById(pathname) {
+  return pathname.includes('user');
 }

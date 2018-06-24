@@ -24,11 +24,13 @@ const commonReducer = (state = initialState, action) => {
     case actionTypes.GET_POSTS:
     case actionTypes.GET_PROFILE:
     case actionTypes.GET_PROFILE_BY_HANDLE:
+    case actionTypes.GET_PROFILE_BY_ID:
     case actionTypes.GET_PROFILES:
     case actionTypes.GIT_HUB_REPOS_NOT_FOUND:
     case actionTypes.POSTS_CAN_NOT_BE_LOADED:
     case actionTypes.POSTS_NOT_FOUND:
     case actionTypes.PROFILE_BY_HANDLE_NOT_FOUND:
+    case actionTypes.PROFILE_BY_ID_NOT_FOUND:
     case actionTypes.PROFILE_CAN_NOT_BE_LOADED:
     case actionTypes.PROFILE_NOT_FOUND:
     case actionTypes.PROFILES_NOT_FOUND:

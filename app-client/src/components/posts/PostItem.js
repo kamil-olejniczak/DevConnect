@@ -10,12 +10,11 @@ class PostItem extends Component {
 
   render() {
     const {post, auth} = this.props;
-
     return (
       <div className="card card-body mb-3">
         <div className="row">
           <div className="col-md-2">
-            <a href={`/developers`}>
+            <a href={`/developers/user/${post.user}`}>
               <img className="rounded-circle d-none d-md-block"
                    src={post.avatar}
                    alt="User avatar"

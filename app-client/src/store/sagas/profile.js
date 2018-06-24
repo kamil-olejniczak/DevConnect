@@ -46,7 +46,24 @@ export function* getProfileByHandleSaga({payload}) {
       yield put(profileActions.profileCanNotBeLoaded());
       yield put(errorActions.serverIsOffline());
     } else {
-      yield put(profileActions.profileByHandleNotFound({handleNotFound: true}));
+      yield put(profileActions.profileByHandleNotFound({profileNotFound: true}));
+    }
+  }
+}
+
+export function* getProfileByIdSaga({payload}) {
+  try {
+    yield put(profileActions.profileIsLoading());
+    const response = yield axios.get('/api/profile/user/' + payload);
+    const data = response.data;
+
+    yield put(profileActions.getProfileById(data));
+  } catch (error) {
+    if (error.response.status === 500) {
+      yield put(profileActions.profileCanNotBeLoaded());
+      yield put(errorActions.serverIsOffline());
+    } else {
+      yield put(profileActions.profileByIdNotFound({profileNotFound: true}));
     }
   }
 }

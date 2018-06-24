@@ -23,7 +23,9 @@ const profileReducer = (state = initialState, action) => {
       };
     }
     case actionTypes.GET_PROFILE_BY_HANDLE:
-    case actionTypes.PROFILE_BY_HANDLE_NOT_FOUND: {
+    case actionTypes.PROFILE_BY_HANDLE_NOT_FOUND:
+    case actionTypes.GET_PROFILE_BY_ID:
+    case actionTypes.PROFILE_BY_ID_NOT_FOUND: {
       return {
         ...state,
         profile: action.payload

@@ -21,7 +21,7 @@ class Profiles extends Component {
             <h3>{profile.user.name}</h3>
             <p>{profile.status} {isEmpty(profile.company) ? null : (<span> at {profile.company}</span>)}</p>
             <p>{isEmpty(profile.location) ? null : (<span>{profile.location}</span>)}</p>
-            <Link className="btn btn-info" to={`/developers/${profile.handle}`}>View developer profile</Link>
+            <Link className="btn btn-info" to={`/developers/handle/${profile.handle}`}>View developer profile</Link>
           </div>
           <div className="cold-md-4 d-none d-md-block">
             <h4>Developer skill set:</h4>

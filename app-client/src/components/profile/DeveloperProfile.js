@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {initGetProfileByHandle} from '../../store/actions/profile';
+import {initGetProfileByHandle, initGetProfileById} from '../../store/actions/profile';
 import isEmpty from '../../utils/emptyObjectValidator';
 import Spinner from '../layout/Spinner';
 import {Link} from 'react-router-dom';
@@ -9,10 +9,16 @@ import ProfileHeader from './elements/ProfileHeader';
 import ProfileAbout from './elements/ProfileAbout';
 import ProfileCredentials from './elements/ProfileCredentials';
 import ProfileGitHub from './elements/ProfileGitHub';
+import {isPathForGetUserByHandle, isPathForGetUserById} from '../../utils/utils';
 
 class DeveloperProfile extends Component {
   componentDidMount() {
-    this.props.initGetProfileByHandle(this.props.match.params.handle);
+    const {pathname} = this.props.history.location;
+    if (isPathForGetUserByHandle(pathname)) {
+      this.props.initGetProfileByHandle(this.props.match.params.handle);
+    } else if (isPathForGetUserById(pathname)) {
+      this.props.initGetProfileById(this.props.match.params.id);
+    }
   }
 
   render() {
@@ -22,7 +28,7 @@ class DeveloperProfile extends Component {
 
     if (isDataLoading || isEmpty(profile)) {
       renderedProfile = (<Spinner/>);
-    } else if (!isDataLoading && !profile.handleNotFound) {
+    } else if (!isDataLoading && !profile.profileNotFound) {
       renderedProfile = (
         <div>
           <ProfileHeader profile={profile}/>
@@ -31,7 +37,7 @@ class DeveloperProfile extends Component {
           {profile.gitHubUsername ? <ProfileGitHub gitHubUsername={profile.gitHubUsername}/> : null}
         </div>
       );
-    } else if (profile.handleNotFound) {
+    } else if (profile.profileNotFound) {
       renderedProfile = (
         <div>
           <p className="lead text-muted">There is no profile with that handle in database.</p>
@@ -61,6 +67,7 @@ class DeveloperProfile extends Component {
 
 DeveloperProfile.propTypes = {
   initGetProfileByHandle: PropTypes.func.isRequired,
+  initGetProfileById: PropTypes.func.isRequired,
   common: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -74,7 +81,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    initGetProfileByHandle: (handle) => dispatch(initGetProfileByHandle(handle))
+    initGetProfileByHandle: (handle) => dispatch(initGetProfileByHandle(handle)),
+    initGetProfileById: (id) => dispatch(initGetProfileById(id))
   };
 };
 
