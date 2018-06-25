@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {initRemovePost} from '../../store/actions/post';
 
 class PostItem extends Component {
   onDeleteClick = () => {
-    console.log('delete', this.props.post._id);
+    this.props.initRemovePost(this.props.post._id);
   };
 
   render() {
@@ -39,7 +40,8 @@ class PostItem extends Component {
               <button
                 onClick={this.onDeleteClick}
                 type="button"
-                className="btn btn-danger mr-1">
+                className="btn btn-danger mr-1"
+                disabled={this.props.isDataLoading}>
                 <i className="fas fa-times"/>
               </button>
             ) : null}
@@ -51,14 +53,23 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
+  initRemovePost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  post: PropTypes.object.isRequired,
+  isDataLoading: PropTypes.bool.isRequired,
+  post: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     auth: state.auth,
+    isDataLoading: state.common.isDataLoading
   };
 };
 
-export default connect(mapStateToProps, null)(PostItem);
+const mapDispatchToProps = dispatch => {
+  return {
+    initRemovePost: (id) => dispatch(initRemovePost(id))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostItem);

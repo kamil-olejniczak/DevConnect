@@ -50,6 +50,11 @@ export const createPostRequestNotProcessed = errors => ({
   errors
 });
 
+export const removePostRequestNotProcessed = errors => ({
+  type: errorActions.REMOVE_POST_REQUEST_NOT_PROCESSED,
+  errors
+});
+
 export const cleanUpErrors = () => ({
   type: errorActions.CLEAN_UP_ERRORS
 });

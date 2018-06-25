@@ -31,3 +31,14 @@ export const createPost = payload => ({
   type: postActions.CREATE_POST,
   payload
 });
+
+export const initRemovePost = payload => ({
+  type: postActions.INIT_REMOVE_POST,
+  payload
+});
+
+export const removePost = payload => ({
+  type: postActions.REMOVE_POST,
+  payload
+});
+

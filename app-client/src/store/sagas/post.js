@@ -33,3 +33,14 @@ export function* createPostSaga({payload}) {
     yield put(errorActions.createPostRequestNotProcessed(error.response.data));
   }
 }
+
+export function* removePostSaga({payload}) {
+  try {
+    yield put(commonActions.dataIsBeingSend());
+    yield put(postActions.removePost(payload));
+    yield axios.delete('/api/posts/' + payload);
+  } catch (error) {
+    yield put(commonActions.dataWasSend());
+    yield put(errorActions.removePostRequestNotProcessed(error.response.data));
+  }
+}

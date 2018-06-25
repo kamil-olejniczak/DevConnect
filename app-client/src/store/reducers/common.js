@@ -36,6 +36,7 @@ const commonReducer = (state = initialState, action) => {
     case actionTypes.PROFILES_NOT_FOUND:
     case actionTypes.REMOVE_EDUCATION:
     case actionTypes.REMOVE_EXPERIENCE:
+    case actionTypes.REMOVE_POST:
     case actionTypes.REMOVE_PROFILE_ALONG_WITH_USER:
     case actionTypes.UPDATE_PROFILE: {
       return {
