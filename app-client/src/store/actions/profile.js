@@ -116,9 +116,8 @@ export const initRemoveProfile = history => ({
   history
 });
 
-export const removeProfile = payload => ({
-  type: profileActions.REMOVE_PROFILE_ALONG_WITH_USER,
-  payload,
+export const removeProfile = () => ({
+  type: profileActions.REMOVE_PROFILE_ALONG_WITH_USER
 });
 
 export const initAddExperience = (payload, history) => ({
