@@ -20,7 +20,11 @@ class Experience extends Component {
           {exp.to === undefined ? 'Current job' : <Moment format="YYYY/MM/DD">{exp.to}</Moment>}
         </td>
         <td>
-          <button className="btn btn-danger" onClick={() => this.onRemoveClick(exp._id)}>Delete</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => this.onRemoveClick(exp._id)}
+            disabled={this.props.isDataLoading}>Delete
+          </button>
         </td>
       </tr>
     ));
@@ -57,12 +61,14 @@ class Experience extends Component {
 
 Experience.propTypes = {
   initRemoveExperience: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  isDataLoading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    errors: state.errors
+    errors: state.errors,
+    isDataLoading: state.common.isDataLoading
   };
 };
 

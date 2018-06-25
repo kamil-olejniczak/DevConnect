@@ -20,7 +20,11 @@ class Education extends Component {
           {edu.to === undefined ? 'Currently learning' : <Moment format="YYYY/MM/DD">{edu.to}</Moment>}
         </td>
         <td>
-          <button className="btn btn-danger" onClick={() => this.onRemoveClick(edu._id)}>Delete</button>
+          <button
+            className="btn btn-danger"
+            onClick={() => this.onRemoveClick(edu._id)}
+            disabled={this.props.isDataLoading}>Delete
+          </button>
         </td>
       </tr>
     ));
@@ -57,12 +61,14 @@ class Education extends Component {
 
 Education.propTypes = {
   initRemoveEducation: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  isDataLoading: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   return {
-    errors: state.errors
+    errors: state.errors,
+    isDataLoading: state.common.isDataLoading
   };
 };
 

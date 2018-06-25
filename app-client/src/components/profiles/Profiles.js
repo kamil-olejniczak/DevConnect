@@ -19,13 +19,13 @@ class Profiles extends Component {
 
     if (isDataLoading || (isEmpty(profiles) && isEmpty(errors))) {
       renderedProfiles = (<Spinner/>);
-    } else if (!isDataLoading && !profiles.profilesNotFound && !errors.serverStatus) {
-      renderedProfiles = (profiles.map(profile => (<ProfileItem key={profile._id} profile={profile}/>)));
     } else if (profiles.profilesNotFound || errors.serverStatus) {
       renderedProfiles = errors.serverStatus ? (<p className="lead text-muted">{errors.serverStatus}</p>) : (
         <div>
           <p className="lead text-muted">Currently there are no profiles in database. Feel free to add yours!</p>
         </div>);
+    } else {
+      renderedProfiles = (profiles.map(profile => (<ProfileItem key={profile._id} profile={profile}/>)));
     }
 
     return (

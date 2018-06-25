@@ -18,15 +18,15 @@ class Posts extends Component {
     const {isDataLoading} = this.props.common;
     let renderedPosts;
 
-    if (isDataLoading || (isEmpty(posts) && isEmpty(errors))) {
+    if ((isDataLoading  && isEmpty(posts))  || (isEmpty(posts) && isEmpty(errors))) {
       renderedPosts = (<Spinner/>);
-    } else if (!isDataLoading && !posts.postsNotFound && !errors.serverStatus) {
-      renderedPosts = posts.map(post => <PostItem post={post} key={post._id}/>);
     } else if (posts.postsNotFound || errors.serverStatus) {
       renderedPosts = errors.serverStatus ? (<p className="lead text-muted">{errors.serverStatus}</p>) : (
         <div>
           <p className="lead text-muted">Currently there are no posts in database. Feel free to post something!</p>
         </div>);
+    } else {
+      renderedPosts = posts.map(post => <PostItem post={post} key={post._id}/>);
     }
 
     return (

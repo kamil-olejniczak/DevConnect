@@ -23,12 +23,19 @@ class DeveloperProfile extends Component {
 
   render() {
     const {profile} = this.props.profile;
+    const {errors} = this.props;
     const {isDataLoading} = this.props.common;
     let renderedProfile;
 
     if (isDataLoading || isEmpty(profile)) {
       renderedProfile = (<Spinner/>);
-    } else if (!isDataLoading && !profile.profileNotFound) {
+    } else if (profile.profileNotFound || errors.serverStatus) {
+      renderedProfile = errors.serverStatus ? (<p className="lead text-muted">{errors.serverStatus}</p>) : (
+        <div>
+          <p className="lead text-muted">There is no profile with that handle in database.</p>
+        </div>
+      );
+    } else {
       renderedProfile = (
         <div>
           <ProfileHeader profile={profile}/>
@@ -37,13 +44,8 @@ class DeveloperProfile extends Component {
           {profile.gitHubUsername ? <ProfileGitHub gitHubUsername={profile.gitHubUsername}/> : null}
         </div>
       );
-    } else if (profile.profileNotFound) {
-      renderedProfile = (
-        <div>
-          <p className="lead text-muted">There is no profile with that handle in database.</p>
-        </div>
-      );
     }
+
     return (
       <div className="profiles">
         <div className="container">
@@ -69,12 +71,14 @@ DeveloperProfile.propTypes = {
   initGetProfileByHandle: PropTypes.func.isRequired,
   initGetProfileById: PropTypes.func.isRequired,
   common: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
   return {
     common: state.common,
+    errors: state.errors,
     profile: state.profile
   };
 };

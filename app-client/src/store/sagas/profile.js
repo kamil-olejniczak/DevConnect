@@ -140,11 +140,13 @@ export function* addExperienceSaga({payload, history}) {
 
 export function* removeExperienceSaga({payload}) {
   try {
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.delete('/api/profile/experience/' + payload);
 
     yield put(profileActions.removeExperience(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.removeExperienceRequestNotProcessed(error.response.data));
   }
 }
@@ -165,11 +167,13 @@ export function* addEducationSaga({payload, history}) {
 
 export function* removeEducationSaga({payload}) {
   try {
+    yield put(commonActions.dataIsBeingSend());
     const response = yield axios.delete('/api/profile/education/' + payload);
 
     yield put(profileActions.removeEducation(response.data));
     yield put(errorActions.cleanUpErrors());
   } catch (error) {
+    yield put(commonActions.dataWasSend());
     yield put(errorActions.removeEducationRequestNotProcessed(error.response.data));
   }
 }
