@@ -2,11 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {initRemovePost} from '../../store/actions/post';
+import {initLikePost, initRemovePost} from '../../store/actions/post';
 
 class PostItem extends Component {
   onDeleteClick = () => {
     this.props.initRemovePost(this.props.post._id);
+  };
+
+  onLikeClick = () => {
+    this.props.initLikePost(this.props.post._id);
   };
 
   render() {
@@ -26,7 +30,7 @@ class PostItem extends Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{post.text}</p>
-            <button type="button" className="btn btn-light mr-1">
+            <button type="button" className="btn btn-light mr-1" onClick={this.onLikeClick}>
               <i className="text-info fas fa-thumbs-up"></i>
               <span className="badge badge-light">{post.likes.length}</span>
             </button>
@@ -54,6 +58,7 @@ class PostItem extends Component {
 
 PostItem.propTypes = {
   initRemovePost: PropTypes.func.isRequired,
+  initLikePost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   isDataLoading: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired
@@ -68,7 +73,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    initRemovePost: (id) => dispatch(initRemovePost(id))
+    initRemovePost: (id) => dispatch(initRemovePost(id)),
+    initLikePost: (id) => dispatch(initLikePost(id))
   };
 };
 

@@ -8,9 +8,8 @@ export function* getPostsSaga() {
   try {
     yield put(postActions.postsAreLoading());
     const response = yield axios.get('/api/posts');
-    const data = response.data;
 
-    yield put(postActions.getPosts(data));
+    yield put(postActions.getPosts(response.data));
   } catch (error) {
     if (error.response.status === 500) {
       yield put(postActions.postsCanNotBeLoaded());
@@ -37,10 +36,27 @@ export function* createPostSaga({payload}) {
 export function* removePostSaga({payload}) {
   try {
     yield put(commonActions.dataIsBeingSend());
-    yield put(postActions.removePost(payload));
     yield axios.delete('/api/posts/' + payload);
+
+    yield put(postActions.removePost(payload));
   } catch (error) {
     yield put(commonActions.dataWasSend());
-    yield put(errorActions.removePostRequestNotProcessed(error.response.data));
+    if (error.response.data.posts) {
+      yield put(postActions.postsNotFound({postsNotFound: true}));
+    } else {
+      yield put(errorActions.removePostRequestNotProcessed(error.response.data));
+    }
+  }
+}
+
+export function* likePostSaga({payload}) {
+  try {
+    yield put(commonActions.dataIsBeingSend());
+    const response = yield axios.post('/api/posts/like/' + payload);
+
+    yield put(postActions.likePost(response.data));
+  } catch (error) {
+    yield put(commonActions.dataWasSend());
+    yield put(errorActions.likePostRequestNotProcessed(error.response.data));
   }
 }

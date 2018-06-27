@@ -18,7 +18,7 @@ class Posts extends Component {
     const {isDataLoading} = this.props.common;
     let renderedPosts;
 
-    if ((isDataLoading  && isEmpty(posts))  || (isEmpty(posts) && isEmpty(errors))) {
+    if ((isDataLoading && isEmpty(posts)) || (isEmpty(posts) && isEmpty(errors))) {
       renderedPosts = (<Spinner/>);
     } else if (posts.postsNotFound || errors.serverStatus) {
       renderedPosts = errors.serverStatus ? (<p className="lead text-muted">{errors.serverStatus}</p>) : (

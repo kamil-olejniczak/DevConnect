@@ -42,3 +42,13 @@ export const removePost = payload => ({
   payload
 });
 
+export const initLikePost = payload => ({
+  type: postActions.INIT_LIKE_POST,
+  payload
+});
+
+export const likePost = payload => ({
+  type: postActions.LIKE_POST,
+  payload
+});
+
