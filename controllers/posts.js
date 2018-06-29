@@ -96,8 +96,9 @@ async function unlikePostById(req, res) {
     .indexOf(req.user.id);
 
   post.likes.splice(indexToBeRemoved, 1);
-  const savedPost = await post.save();
-  res.json(savedPost);
+  await post.save();
+  const posts = await Post.find().sort({date: -1});
+  res.json(posts);
 }
 
 async function addCommentToPostById(req, res) {
