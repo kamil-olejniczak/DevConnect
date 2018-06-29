@@ -52,3 +52,13 @@ export const likePost = payload => ({
   payload
 });
 
+export const initUnlikePost = payload => ({
+  type: postActions.INIT_UNLIKE_POST,
+  payload
+});
+
+export const unlikePost = payload => ({
+  type: postActions.UNLIKE_POST,
+  payload
+});
+

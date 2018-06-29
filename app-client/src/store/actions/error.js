@@ -60,6 +60,11 @@ export const likePostRequestNotProcessed = errors => ({
   errors
 });
 
+export const unlikePostRequestNotProcessed = errors => ({
+  type: errorActions.UNLIKE_POST_REQUEST_NOT_PROCESSED,
+  errors
+});
+
 export const cleanUpErrors = () => ({
   type: errorActions.CLEAN_UP_ERRORS
 });

@@ -14,6 +14,7 @@ const errorReducer = (state = initialState, action) => {
     case actionTypes.REMOVE_EXPERIENCE_REQUEST_NOT_PROCESSED:
     case actionTypes.REMOVE_POST_REQUEST_NOT_PROCESSED:
     case actionTypes.REMOVE_PROFILE_ALONG_WITH_USER_REQUEST_NOT_PROCESSED:
+    case actionTypes.UNLIKE_POST_REQUEST_NOT_PROCESSED:
     case actionTypes.UPDATE_PROFILE_REQUEST_NOT_PROCESSED:
     case actionTypes.SAVE_NEW_USER_REQUEST_NOT_PROCESSED: {
       return action.errors

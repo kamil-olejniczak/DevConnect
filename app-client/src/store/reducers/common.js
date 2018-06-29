@@ -39,6 +39,7 @@ const commonReducer = (state = initialState, action) => {
     case actionTypes.REMOVE_EXPERIENCE:
     case actionTypes.REMOVE_POST:
     case actionTypes.REMOVE_PROFILE_ALONG_WITH_USER:
+    case actionTypes.UNLIKE_POST:
     case actionTypes.UPDATE_PROFILE: {
       return {
         isDataLoading: false

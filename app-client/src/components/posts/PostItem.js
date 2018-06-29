@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {initLikePost, initRemovePost} from '../../store/actions/post';
+import {initLikePost, initRemovePost, initUnlikePost} from '../../store/actions/post';
 
 class PostItem extends Component {
   onDeleteClick = () => {
@@ -11,6 +11,10 @@ class PostItem extends Component {
 
   onLikeClick = () => {
     this.props.initLikePost(this.props.post._id);
+  };
+
+  onUnlikeClick = () => {
+    this.props.initUnlikePost(this.props.post._id);
   };
 
   render() {
@@ -34,7 +38,7 @@ class PostItem extends Component {
               <i className="text-info fas fa-thumbs-up"></i>
               <span className="badge badge-light">{post.likes.length}</span>
             </button>
-            <button type="button" className="btn btn-light mr-1">
+            <button type="button" className="btn btn-light mr-1" onClick={this.onUnlikeClick}>
               <i className="text-secondary fas fa-thumbs-down"></i>
             </button>
             <Link className="btn btn-info mr-1" to={`posts/${post._id}`}>
@@ -57,8 +61,9 @@ class PostItem extends Component {
 }
 
 PostItem.propTypes = {
-  initRemovePost: PropTypes.func.isRequired,
   initLikePost: PropTypes.func.isRequired,
+  initUnlikePost: PropTypes.func.isRequired,
+  initRemovePost: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   isDataLoading: PropTypes.bool.isRequired,
   post: PropTypes.object.isRequired
@@ -73,8 +78,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    initRemovePost: (id) => dispatch(initRemovePost(id)),
-    initLikePost: (id) => dispatch(initLikePost(id))
+    initLikePost: (id) => dispatch(initLikePost(id)),
+    initUnlikePost: (id) => dispatch(initUnlikePost(id)),
+    initRemovePost: (id) => dispatch(initRemovePost(id))
   };
 };
 

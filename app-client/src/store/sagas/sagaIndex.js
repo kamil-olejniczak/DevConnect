@@ -15,7 +15,7 @@ import {
   removeProfileAlongWithUserSaga,
   updateProfileSaga
 } from './profile';
-import {createPostSaga, getPostsSaga, likePostSaga, removePostSaga} from './post';
+import {createPostSaga, getPostsSaga, likePostSaga, removePostSaga, unlikePostSaga} from './post';
 
 const watchAuth = [
   takeEvery(actionTypes.INIT_SAVE_NEW_USER, saveNewUserSaga),
@@ -44,6 +44,7 @@ const watchPost = [
   takeEvery(actionTypes.INIT_CREATE_POST, createPostSaga),
   takeEvery(actionTypes.INIT_REMOVE_POST, removePostSaga),
   takeEvery(actionTypes.INIT_LIKE_POST, likePostSaga),
+  takeEvery(actionTypes.INIT_UNLIKE_POST, unlikePostSaga),
 ];
 
 export default function* rootSaga() {

@@ -60,3 +60,15 @@ export function* likePostSaga({payload}) {
     yield put(errorActions.likePostRequestNotProcessed(error.response.data));
   }
 }
+
+export function* unlikePostSaga({payload}) {
+  try {
+    yield put(commonActions.dataIsBeingSend());
+    const response = yield axios.post('/api/posts/unlike/' + payload);
+
+    yield put(postActions.unlikePost(response.data));
+  } catch (error) {
+    yield put(commonActions.dataWasSend());
+    yield put(errorActions.unlikePostRequestNotProcessed(error.response.data));
+  }
+}

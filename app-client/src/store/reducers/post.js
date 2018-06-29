@@ -32,6 +32,12 @@ const postReducer = (state = initialState, action) => {
         posts: action.payload
       };
     }
+    case actionTypes.UNLIKE_POST: {
+      return {
+        ...state,
+        posts: action.payload
+      };
+    }
     default:
       return state;
   }
