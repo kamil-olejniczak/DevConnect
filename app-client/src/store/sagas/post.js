@@ -20,6 +20,22 @@ export function* getPostsSaga() {
   }
 }
 
+export function* getPostSaga({payload}) {
+  try {
+    yield put(postActions.postIsLoading());
+    const response = yield axios.get('/api/posts/' + payload);
+
+    yield put(postActions.getPost(response.data));
+  } catch (error) {
+    if (error.response.status === 500) {
+      yield put(postActions.postCanNotBeLoaded());
+      yield put(errorActions.serverIsOffline());
+    } else {
+      yield put(postActions.postNotFound({postNotFound: true}));
+    }
+  }
+}
+
 export function* createPostSaga({payload}) {
   try {
     yield put(commonActions.dataIsBeingSend());
