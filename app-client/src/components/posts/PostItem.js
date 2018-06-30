@@ -17,8 +17,35 @@ class PostItem extends Component {
     this.props.initUnlikePost(this.props.post._id);
   };
 
+  markLikedPost() {
+    const {likes} = this.props.post;
+    return likes.filter(post => post.user === this.props.auth.user.id).length > 0 ?
+      'text-info fas fa-thumbs-up' : 'fas fa-thumbs-up';
+  }
+
   render() {
-    const {post, auth} = this.props;
+    const {post, auth, areActionsShown} = this.props;
+    const postActions = areActionsShown ? (<div>
+      <button type="button" className="btn btn-light mr-1" onClick={this.onLikeClick}>
+        <i className={this.markLikedPost()}></i>
+        <span className="badge badge-light">{post.likes.length}</span>
+      </button>
+      <button type="button" className="btn btn-light mr-1" onClick={this.onUnlikeClick}>
+        <i className="text-secondary fas fa-thumbs-down"></i>
+      </button>
+      <Link className="btn btn-info mr-1" to={`posts/${post._id}`}>
+        Comments
+      </Link>
+      {post.user === auth.user.id ? (
+        <button
+          onClick={this.onDeleteClick}
+          type="button"
+          className="btn btn-danger mr-1"
+          disabled={this.props.isDataLoading}>
+          <i className="fas fa-times"/>
+        </button>) : null}
+    </div>) : null;
+
     return (
       <div className="card card-body mb-3">
         <div className="row">
@@ -34,31 +61,17 @@ class PostItem extends Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{post.text}</p>
-            <button type="button" className="btn btn-light mr-1" onClick={this.onLikeClick}>
-              <i className="text-info fas fa-thumbs-up"></i>
-              <span className="badge badge-light">{post.likes.length}</span>
-            </button>
-            <button type="button" className="btn btn-light mr-1" onClick={this.onUnlikeClick}>
-              <i className="text-secondary fas fa-thumbs-down"></i>
-            </button>
-            <Link className="btn btn-info mr-1" to={`posts/${post._id}`}>
-              Comments
-            </Link>
-            {post.user === auth.user.id ? (
-              <button
-                onClick={this.onDeleteClick}
-                type="button"
-                className="btn btn-danger mr-1"
-                disabled={this.props.isDataLoading}>
-                <i className="fas fa-times"/>
-              </button>
-            ) : null}
+            {postActions}
           </div>
         </div>
       </div>
     );
   }
 }
+
+PostItem.defaultProps = {
+  areActionsShown: false
+};
 
 PostItem.propTypes = {
   initLikePost: PropTypes.func.isRequired,
