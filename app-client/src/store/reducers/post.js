@@ -14,6 +14,13 @@ const postReducer = (state = initialState, action) => {
         posts: action.payload
       };
     }
+    case actionTypes.GET_POST:
+    case actionTypes.POST_NOT_FOUND: {
+      return {
+        ...state,
+        post: action.payload
+      };
+    }
     case actionTypes.CREATE_POST: {
       return {
         ...state,

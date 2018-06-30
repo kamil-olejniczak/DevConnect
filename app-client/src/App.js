@@ -21,6 +21,7 @@ import DeveloperProfile from './components/profile/DeveloperProfile';
 import NotFound from './components/common/NotFound';
 import Posts from './components/posts/Posts';
 import loginUserAndSetExpirationTime from './store/middleware/tokenExpiration';
+import Post from './components/post/Post';
 
 const token = localStorage.getItem('JWT_TOKEN');
 if (token) {
@@ -55,6 +56,7 @@ class App extends Component {
             <PrivateRoute path="/developers/handle/:handle" component={DeveloperProfile} exact/>
             <PrivateRoute path="/developers/user/:id" component={DeveloperProfile} exact/>
             <PrivateRoute path="/posts" component={Posts} exact/>
+            <PrivateRoute path="/posts/:id" component={Post} exact/>
             < Route path="/*" component={NotFound}/>
           </Switch>
           <Footer/>

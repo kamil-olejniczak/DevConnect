@@ -26,7 +26,7 @@ class Posts extends Component {
           <p className="lead text-muted">Currently there are no posts in database. Feel free to post something!</p>
         </div>);
     } else {
-      renderedPosts = posts.map(post => <PostItem post={post} key={post._id}/>);
+      renderedPosts = posts.map(post => <PostItem post={post} key={post._id} areActionsShown/>);
     }
 
     return (

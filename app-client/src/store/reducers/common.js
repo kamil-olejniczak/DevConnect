@@ -7,6 +7,7 @@ export const initialState = {
 const commonReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.DATA_IS_BEING_SEND:
+    case actionTypes.POST_IS_LOADING:
     case actionTypes.POSTS_ARE_LOADING:
     case actionTypes.PROFILE_IS_LOADING:
     case actionTypes.PROFILES_ARE_LOADING: {
@@ -21,6 +22,7 @@ const commonReducer = (state = initialState, action) => {
     case actionTypes.CREATE_PROFILE:
     case actionTypes.DATA_WAS_SEND:
     case actionTypes.GET_GIT_HUB_REPOS:
+    case actionTypes.GET_POST:
     case actionTypes.GET_POSTS:
     case actionTypes.GET_PROFILE:
     case actionTypes.GET_PROFILE_BY_HANDLE:
@@ -28,7 +30,9 @@ const commonReducer = (state = initialState, action) => {
     case actionTypes.GET_PROFILES:
     case actionTypes.GIT_HUB_REPOS_NOT_FOUND:
     case actionTypes.LIKE_POST:
+    case actionTypes.POST_CAN_NOT_BE_LOADED:
     case actionTypes.POSTS_CAN_NOT_BE_LOADED:
+    case actionTypes.POST_NOT_FOUND:
     case actionTypes.POSTS_NOT_FOUND:
     case actionTypes.PROFILE_BY_HANDLE_NOT_FOUND:
     case actionTypes.PROFILE_BY_ID_NOT_FOUND:

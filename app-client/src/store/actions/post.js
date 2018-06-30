@@ -22,6 +22,29 @@ export const postsCanNotBeLoaded = () => ({
   type: postActions.POSTS_CAN_NOT_BE_LOADED
 });
 
+export const initGetPost = payload => ({
+  type: postActions.INIT_GET_POST,
+  payload
+});
+
+export const getPost = payload => ({
+  type: postActions.GET_POST,
+  payload
+});
+
+export const postNotFound = payload => ({
+  type: postActions.POST_NOT_FOUND,
+  payload
+});
+
+export const postIsLoading = () => ({
+  type: postActions.POST_IS_LOADING
+});
+
+export const postCanNotBeLoaded = () => ({
+  type: postActions.POST_CAN_NOT_BE_LOADED
+});
+
 export const initCreatePost = payload => ({
   type: postActions.INIT_CREATE_POST,
   payload,
